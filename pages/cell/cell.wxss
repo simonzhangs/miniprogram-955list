@@ -1,0 +1,12 @@
+.demo-section__wrapper {
+  margin: 32rpx 0;
+}
+.demo-section__wrapper .t-class-left {
+  align-self: flex-start;
+}
+.demo-section__wrapper .avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}

@@ -1,0 +1,10 @@
+page .demo-section__wrapper {
+  margin: 32rpx 0;
+  padding: 16rpx 32rpx;
+  opacity: 1;
+  background: #ffffff;
+}
+page .t-class-cancel {
+  color: #0052d9;
+  font-weight: 400;
+}

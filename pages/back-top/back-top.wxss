@@ -1,0 +1,27 @@
+page {
+  background: #fff;
+}
+page .button-group {
+  margin-top: 32rpx;
+}
+page .button-group-item {
+  margin: 0 32rpx 32rpx;
+}
+page .button-group-item .t-class-button {
+  font-size: 32rpx;
+}
+page .flex {
+  display: flex;
+}
+page .skeleton-text {
+  border-radius: 16rpx;
+}
+page .skeleton-item {
+  padding-bottom: 24rpx;
+}
+page .container-flex {
+  display: flex;
+  justify-content: space-between;
+  margin: 32rpx;
+  flex-wrap: wrap;
+}
