@@ -1,0 +1,8 @@
+<company-list
+companyList="{{companyList}}"
+></company-list>
+
+<t-demo>
+  <!-- theme 为 text，只有版权信息 -->
+  <t-footer theme="text" copyright="{{copyright}}" class="t-footer-demo" />
+</t-demo>

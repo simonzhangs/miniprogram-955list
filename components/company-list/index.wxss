@@ -1,0 +1,44 @@
+.info{
+  display:flex;
+  flex-direction: column;
+}
+.info .title,.info .number{
+  /* justify-self: center; */
+  align-self: center;
+  margin-bottom: 20rpx;
+}
+.item{
+  background-color: rgb(175, 171, 171);
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  margin: 10rpx 10rpx 10rpx;
+}
+
+.oneline-list {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 8rpx;
+  border-style:ridge;
+  margin-bottom: 24rpx;
+  overflow: hidden;
+}
+.switchBox {
+  height: 120rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32rpx;
+  font-size: 32rpx;
+  line-height: 48rpx;
+  color: #333;
+}
+
+.name,
+.icon {
+  transition: opacity 0.3s;
+}
+.name {
+  opacity: 0.9;
+}

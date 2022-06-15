@@ -1,0 +1,11 @@
+<view class="info">
+<view class="title">955 名单</view>
+<view class="number">公司数量：{{companyList.length}}</view>
+</view>
+<view wx:for="{{companyList}}" class="oneline-list" wx:key="item">
+ <view class="switchBox">
+    <view class="name">{{ item.name }}</view>
+    <view class="location">{{item.location}}</view>
+  </view>
+</view>
+

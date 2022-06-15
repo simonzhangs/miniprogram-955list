@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "955 list",
+  "navigationBarBackgroundColor": "#fff",
+  "usingComponents": {
+    "company-list": "../../components/company-list/index",
+    "t-demo": "../../components/demo-block/index"
+  }
+}
