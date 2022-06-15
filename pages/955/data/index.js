@@ -20,13 +20,73 @@ const companyList = [
     location:'北京'
   },
   {
-    name:'zhihu',
+    name:'Apple',
+    location:'北京/上海'
+  },
+  {
+    name:'ArcSoft',
+    location:'杭州'
+  },
+  {
+    name:'AutoDesk',
+    location:'北京/上海'
+  },
+  {
+    name:'Booking',
+    location:'上海'
+  },
+  {
+    name:'Calix',
+    location:'南京'
+  },
+  {
+    name:'Citrix',
+    location:'南京'
+  },
+  {
+    name:'Cisco',
+    location:'北京/上海/杭州/苏州'
+  },
+  {
+    name:'Coolapk(酷安)',
+    location:'北京/深圳'
+  },
+  {
+    name:'Coupang',
+    location:'北京/上海'
+  },
+  {
+    name:'CSTC(花旗金融)',
+    location:'北京/上海'
+  },
+  {
+    name:'Dell',
+    location:'上海'
+  },
+  {
+    name:'Douban',
     location:'北京'
   },
   {
-    name:'douban',
+    name:'eBay',
+    location:'上海'
+  },
+  {
+    name:'eHealth',
+    location:'厦门'
+  },
+  {
+    name:'Xmind',
+    location:'深圳'
+  },
+  {
+    name:'Zhihu',
     location:'北京'
-  }
+  },
+  {
+    name:'Zoom',
+    location:'合肥/杭州/苏州'
+  },
 ]
 
 export default companyList;

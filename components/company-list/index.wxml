@@ -1,5 +1,5 @@
 <view class="info">
-<view class="title">955 名单</view>
+<view class="title">{{ title }}</view>
 <view class="number">公司数量：{{companyList.length}}</view>
 </view>
 <view wx:for="{{companyList}}" class="oneline-list" wx:key="item">

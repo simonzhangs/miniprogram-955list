@@ -1,6 +1,6 @@
 <company-list
-companyList="{{companyList}}"
-title="955 list"
+companyList="{{remoteList}}"
+title="remote list"
 ></company-list>
 
 <t-demo>
