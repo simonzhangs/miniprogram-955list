@@ -1,9 +1,5 @@
+<!--pages/remote/remote.wxml-->
 <company-list
 companyList="{{remoteList}}"
 title="remote list"
 ></company-list>
-
-<t-demo>
-  <!-- theme 为 text，只有版权信息 -->
-  <t-footer theme="text" copyright="{{copyright}}" class="t-footer-demo" />
-</t-demo>

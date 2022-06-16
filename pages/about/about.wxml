@@ -1,0 +1,4 @@
+<!--pages/about/about.wxml-->
+<view class="btn">
+  <t-button theme="primary" size="large">分享给朋友</t-button>
+</view>

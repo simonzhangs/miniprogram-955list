@@ -1,0 +1,6 @@
+/* pages/about/about.wxss */
+.t-button{
+  margin: 0 auto;
+  background-color:aquamarine;
+  color: red;
+}

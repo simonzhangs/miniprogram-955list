@@ -1,8 +1,8 @@
 {
-  "navigationBarTitleText": "955 list",
+  "navigationBarTitleText": "955 公司名单",
   "navigationBarBackgroundColor": "#fff",
   "usingComponents": {
     "company-list": "../../components/company-list/index",
-    "t-demo": "../../components/demo-block/index"
+    "t-back-top": "tdesign-miniprogram/back-top/back-top"
   }
 }

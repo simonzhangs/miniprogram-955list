@@ -1,14 +1,13 @@
+<!--pages/home/home.wxml-->
 <view class="main">
   <view class="title-wrap">
-    <image class="title-icon" mode="aspectFit" src="/assets/TDesignLogo@2x.png" />
+    <image class="title-icon" mode="aspectFit" src="/assets/logo.png" />
   </view>
-  <view class="desc"> TDesign 适配微信小程序的组件库 </view>
-  <pull-down-list
-    wx:for="{{list}}"
-    name="{{item.name}}"
-    icon="{{item.icon}}"
-    wx:key="name"
-    childArr="{{item.childArr}}"
-    bind:click="clickHandle"
-  />
+  <view class="desc"> 955 list 福报 </view>
+  <view class="reason">
+  <text>
+    995工作制：每天早上九点到岗，一直工作到下午五点，每周工作5天。\n
+    远程工作：相比于集中式办公，远程办公，不用拘束于具体的地理位置（城市，甚至国家），对于已经厌倦了在北、上、广工作时需要较长通勤时间（大于1小时）的人，远程办公“可能”是一种解脱。
+  </text>
+  </view>
 </view>

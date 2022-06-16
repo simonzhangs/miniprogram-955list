@@ -1,8 +1,7 @@
 {
-  "navigationBarTitleText": "955/remote list",
+  "navigationBarTitleText": "远程办公 公司名单",
   "navigationBarBackgroundColor": "#fff",
   "usingComponents": {
-    "company-list": "../../components/company-list/index",
-    "t-demo": "../../components/demo-block/index"
+    "company-list": "../../components/company-list/index"
   }
 }

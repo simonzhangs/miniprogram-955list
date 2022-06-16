@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "955 list",
+  "navigationBarBackgroundColor": "#fff",
+  "usingComponents": {
+    "t-button": "tdesign-miniprogram/button/button"
+  }
+}

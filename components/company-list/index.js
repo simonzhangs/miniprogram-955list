@@ -1,6 +1,13 @@
 Component({
   properties:{
     companyList: Array,
-    title:String
+  },
+  methods:{
+    clickList(e){
+      // console.log(e);
+      // wx.navigateTo({
+      //   url: '../intro/intro',
+      // })
+    },
   }
 })
