@@ -1,19 +1,25 @@
-// pages/955/955.js
-import companyList from './data/index'
+// pages/company-detail/company-detail.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    companyList
+      company:'',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    const eventChannel = this.getOpenerEventChannel();
+    let list = '';
+    // 监听 acceptDataFromOpenerPage 事件，获取上一页面通过 eventChannel 传送到当前页面的数据
+    eventChannel.on('acceptDataFromOpenerPage', function(data) {
+      console.log("emit",data)
+      list = data.data;
+    })
+    this.setData({company:list});
   },
 
   /**
@@ -63,6 +69,5 @@ Page({
    */
   onShareAppMessage() {
 
-  },
-  
+  }
 })

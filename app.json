@@ -4,7 +4,8 @@
     "pages/home/home",
     "pages/about/about",
     "pages/955/955",
-    "pages/remote/remote"
+    "pages/remote/remote",
+    "pages/company-detail/company-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

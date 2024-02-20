@@ -2,7 +2,7 @@
 <view class="number">公司数量：{{companyList.length}}</view>
 </view>
 <view wx:for="{{companyList}}" class="oneline-list" wx:key="item">
- <view class="switchBox" catch:tap="clickList">
+ <view class="switchBox" catch:tap="clickList" data-company="{{item}}">
     <view class="name">{{ item.name }}</view>
     <view class="location">{{item.location}}</view>
   </view>

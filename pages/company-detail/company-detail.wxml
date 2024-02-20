@@ -1,0 +1,5 @@
+<!--pages/company-detail/company-detail.wxml-->
+<text>pages/company-detail/company-detail.wxml</text>
+<view>
+{{company}}
+</view>
