@@ -4,7 +4,8 @@
     "pages/home/home",
     "pages/about/about",
     "pages/955/955",
-    "pages/remote/remote"
+    "pages/remote/remote",
+    "pages/code-info/code-info"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -16,25 +17,26 @@
   "tabBar": {
     "backgroundColor": "#fff",
     "position": "bottom",
-    "list": [{
-      "pagePath": "pages/home/home",
-      "text": "首页",
-      "iconPath": "./assets/home-black.png",
-      "selectedIconPath": "./assets/home.png"
-    },
-    {
-      "pagePath": "pages/955/955",
-      "text": "公司",
-      "iconPath": "./assets/company-black.png",
-      "selectedIconPath": "./assets/company.png"
-    },
-    {
-      "pagePath": "pages/remote/remote",
-      "text": "远程",
-      "iconPath": "./assets/remote-black.png",
-      "selectedIconPath": "./assets/remote.png"
-    }
-  ]
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "./assets/home-black.png",
+        "selectedIconPath": "./assets/home.png"
+      },
+      {
+        "pagePath": "pages/955/955",
+        "text": "公司",
+        "iconPath": "./assets/company-black.png",
+        "selectedIconPath": "./assets/company.png"
+      },
+      {
+        "pagePath": "pages/remote/remote",
+        "text": "远程",
+        "iconPath": "./assets/remote-black.png",
+        "selectedIconPath": "./assets/remote.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json"
 }

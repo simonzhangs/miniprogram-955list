@@ -1,0 +1,6 @@
+/* pages/code-info.wxss */
+.content {
+ margin: 30rpx;
+ word-wrap:break-word;
+ word-break:normal; 
+}

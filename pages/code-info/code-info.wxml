@@ -1,0 +1,2 @@
+<!--pages/code-info.wxml-->
+<view class="content">{{content}}</view>
