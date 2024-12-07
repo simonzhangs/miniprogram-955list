@@ -1,0 +1,83 @@
+.container {
+  padding: 20px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group {
+  border: 1rpx solid #ccc;
+  border-radius: 10rpx;
+  padding: 20rpx 10rpx;
+}
+.gender, .datetime {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selector {
+  display: flex;
+  align-items: center;
+}
+
+.select-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-icon .txt {
+  opacity: .7;
+}
+
+
+.box {
+  margin-top: 20rpx;
+}
+
+.radio-box {
+  background-color: #f6f6f6;
+}
+
+.line {
+  margin-top: 40rpx;
+  border: 0; 
+  border-top: 1rpx solid #ccc;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.picker {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.radio {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.radio-content {
+  background: red;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.result-item {
+  display: flex;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+}

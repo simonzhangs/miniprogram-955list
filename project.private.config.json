@@ -1,5 +1,5 @@
 {
-  "projectname": "miniprogram-1",
+  "projectname": "miniprogram-955list",
   "setting": {
     "compileHotReLoad": true
   },
@@ -7,6 +7,27 @@
   "condition": {
     "miniprogram": {
       "list": [
+        {
+          "name": "miniprogram_npm/tdesign-miniprogram/date-time-picker/date-time-picker",
+          "pathName": "miniprogram_npm/tdesign-miniprogram/date-time-picker/date-time-picker",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/date-time-picker/date-time-picker",
+          "pathName": "pages/date-time-picker/date-time-picker",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/about/about",
+          "pathName": "pages/about/about",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
         {
           "name": "custom",
           "pathName": "pages/button/button",

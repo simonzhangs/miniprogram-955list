@@ -2,9 +2,6 @@
 <view class="main">
   <retire-cal />
   <view class="btn">
-    <t-button theme="primary" size="large">分享给朋友</t-button>
-  </view>
-  <view class="result">
-  计算结果
+    <t-button size="large">分享给牛马</t-button>
   </view>
 </view>

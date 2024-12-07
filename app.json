@@ -35,6 +35,12 @@
         "text": "远程",
         "iconPath": "./assets/remote-black.png",
         "selectedIconPath": "./assets/remote.png"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "text": "关于",
+        "iconPath": "./assets/about-black.png",
+        "selectedIconPath": "./assets/about.png"
       }
     ]
   },

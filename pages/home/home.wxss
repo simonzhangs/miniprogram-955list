@@ -41,3 +41,8 @@ page {
   padding-left: 16rpx;
   padding-right: 16rpx;
 }
+
+.btn {
+  display: flex;
+  justify-content: center;
+}

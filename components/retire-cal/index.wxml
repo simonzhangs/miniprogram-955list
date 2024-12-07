@@ -1,0 +1,57 @@
+<view class="container">
+  <view class="input-group">
+    <view class="datetime">
+      <view class="title">出生年月</view>
+      <view class="selector">
+          <view class="select-icon" bindtap="selectDate">
+            
+            <block wx:if="{{datetime}}">{{datetime}}</block>
+            <block wx:else><view class="txt">请选择</view></block>
+
+            <view class="icon">
+            <t-icon name="chevron-right-s" class="icon" />
+            </view>
+          </view>
+      </view>
+    </view>
+    <t-date-time-picker
+      title="出生年月"
+      visible="{{datetimeVisible}}"
+      mode="{{['month']}}"
+      value="{{datetime}}"
+      format="YYYY-MM"
+      start="1965-01"
+      default-value="1990-01"
+      bindcancel="onCancel"
+      bindconfirm="onConfirm"
+      disableDate="{{disableDate}}"
+    ></t-date-time-picker>
+  </view>
+
+  <view class="input-group">
+    <view class="gender">
+        <view class="title">性别</view>
+    </view>
+    <t-radio-group default-value="{{gender}}" borderless t-class="radio-group-box" bindchange="handleRadioChange">
+      <block wx:for="{{genderSelectArr}}" wx:key="*this">
+        <t-radio block="{{true}}" t-class="radio-box" t-radio--block="radio-content" label="{{item.genderName}}" value="{{item.genderKey}}" />
+      </block>
+    </t-radio-group>
+  </view>
+
+  <view class="btn">
+    <t-button theme="primary" bindtap="calculateRetirement">计算牛马退休年纪和日期</t-button>
+  </view>
+  <view class="line"></view>
+  <view class="result" wx:if="{{retirementInfo}}">
+    <view class="result-item">
+      <text>延迟退休月数: {{retirementInfo.delayMonth}}</text>
+      <block wx:if="{{retirementInfo.reachMaxMonth}}">
+          <t-icon name="angry" class="icon" />
+      </block>
+    </view>
+    <text>牛马解套年龄: {{retirementInfo.finalRetireAge}}</text>
+    <text>牛马解套日期: {{retirementInfo.retireDate}}</text>
+    <text>距离解套还有: {{retirementInfo.dateToReire}}</text>
+  </view>
+</view>
