@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "牛马法定退休计算器",
+  "usingComponents": {
+    "t-button": "tdesign-miniprogram/button/button",
+    "retire-cal": "../../components/retire-cal/index"
+  }
 }

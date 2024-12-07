@@ -1,4 +1,4 @@
-// pages/code-info.js
+// pages/code-info/code-info.js
 Page({
 
   /**
@@ -26,13 +26,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.setData({
-        content: '下雪在线体验地址：https://code.juejin.cn/pen/7337924806270500890'
-    });
-    const title = '下雪代码'
-    wx.setNavigationBarTitle({
-        title
-    });
+
   },
 
   /**

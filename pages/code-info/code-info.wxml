@@ -1,2 +1,2 @@
-<!--pages/code-info.wxml-->
-<view class="content">{{content}}</view>
+<!--pages/code-info/code-info.wxml-->
+<text>pages/code-info/code-info.wxml</text>
