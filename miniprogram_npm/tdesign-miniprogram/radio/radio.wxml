@@ -1,39 +1,60 @@
-<view class="{{classPrefix}} {{prefix}}-class {{classPrefix}}--{{align}}">
-  <!-- 图标 -->
+<wxs src="../common/utils.wxs" module="_" />
+
+<view
+  style="{{_._style([style, customStyle])}}"
+  class="{{_.cls(classPrefix, [_placement, ['block', block]])}} class {{prefix}}-class"
+  disabled="{{_disabled}}"
+  aria-role="radio"
+  aria-checked="{{checked}}"
+  aria-label="{{label + content}}"
+  aria-disabled="{{_disabled}}"
+  tabindex="{{tabindex}}"
+  mut-bind:tap="handleTap"
+>
   <view
-    class="{{classPrefix}}__icon {{classPrefix}}__icon--{{align}} {{prefix}}-class-icon"
-    data-target="icon"
-    bind:tap="handleTap"
+    class="{{_.cls(classPrefix + '__icon', [_placement, ['checked', checked], ['disabled', _disabled]])}} {{prefix}}-class-icon"
   >
-    <view wx:if="{{customIcon}}" class="{{classPrefix}}__image">
-      <image src="{{active ? iconVal[0] : iconVal[1]}}" class="{{classPrefix}}-icon__image" webp />
+    <slot name="icon" wx:if="{{slotIcon}}" />
+    <view wx:elif="{{customIcon}}" class="{{classPrefix}}__image">
+      <image src="{{checked ? iconVal[0] : iconVal[1]}}" class="{{classPrefix}}-icon__image" webp />
     </view>
-    <t-icon
-      wx:else
-      color="{{active && !disabled ? color : ''}}"
-      name="{{active ? iconVal[0] : iconVal[1]}}"
-      class="{{classPrefix}}__btn {{disabled ? classPrefix + '-is-disabled' : ''}} {{active ? classPrefix + '-is-checked' : ''}}"
-    />
+    <block wx:else>
+      <t-icon
+        wx:if="{{checked && (icon == 'circle' || icon == 'line')}}"
+        name="{{icon == 'circle' ? 'check-circle-filled' : 'check'}}"
+        class="{{classPrefix}}__icon-wrap"
+      />
+      <view
+        wx:if="{{checked && icon == 'dot'}}"
+        class="{{_.cls(classPrefix + '__icon-' + icon, [['disabled', _disabled]])}}"
+      />
+      <view
+        wx:if="{{!checked && (icon == 'circle' || icon == 'dot')}}"
+        class="{{_.cls(classPrefix + '__icon-circle', [['disabled', _disabled]])}}"
+      />
+      <!-- line && unchecked 为空 需要展位元素 -->
+      <view wx:if="{{!checked && icon == 'line'}}" class="placeholder"></view>
+    </block>
   </view>
-  <!-- 文本内容 -->
-  <view
-    class="{{classPrefix}}__content {{disabled ? classPrefix + '__content--disabled' : ''}}"
-    data-target="text"
-    bind:tap="handleTap"
-  >
-    <!-- 主文本 -->
-    <view class="{{classPrefix}}__title {{prefix}}-class-label" style="-webkit-line-clamp:{{maxLabelRow}}">
-      {{label}}
+
+  <view class="{{classPrefix}}__content" data-target="text" mut-bind:tap="handleTap">
+    <view
+      class="{{_.cls(classPrefix + '__title', [['disabled', _disabled], ['checked', checked]])}} {{prefix}}-class-label"
+      style="-webkit-line-clamp:{{maxLabelRow}}"
+    >
+      <block wx:if="{{label}}">{{label}}</block>
       <slot />
+      <slot name="label" />
     </view>
-    <!-- content -->
-    <view class="{{classPrefix}}__description {{prefix}}-class-content " style="-webkit-line-clamp:{{maxContentRow}}">
-      {{content}}
+
+    <view
+      class="{{_.cls(classPrefix + '__description', [['disabled', _disabled], ['checked', checked]])}} {{prefix}}-class-content "
+      style="-webkit-line-clamp:{{maxContentRow}}"
+    >
+      <block wx:if="{{content}}">{{content}}</block>
+      <slot name="content" />
     </view>
   </view>
-  <!-- 预制下边框 -->
-  <view
-    wx:if="{{!borderless}}"
-    class="{{classPrefix}}__border {{classPrefix}}__border--{{align}} {{prefix}}-class-border"
-  ></view>
+
+  <view wx:if="{{!borderless}}" class="{{_.cls(classPrefix + '__border', [_placement])}} {{prefix}}-class-border" />
 </view>

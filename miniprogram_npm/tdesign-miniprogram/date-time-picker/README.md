@@ -5,6 +5,7 @@ spline: form
 isComponent: true
 ---
 
+<span class="coverages-badge" style="margin-right: 10px"><img src="https://img.shields.io/badge/coverages%3A%20lines-94%25-blue" /></span><span class="coverages-badge" style="margin-right: 10px"><img src="https://img.shields.io/badge/coverages%3A%20functions-98%25-blue" /></span><span class="coverages-badge" style="margin-right: 10px"><img src="https://img.shields.io/badge/coverages%3A%20statements-94%25-blue" /></span><span class="coverages-badge" style="margin-right: 10px"><img src="https://img.shields.io/badge/coverages%3A%20branches-86%25-blue" /></span>
 ## 引入
 
 全局引入，在 miniprogram 根目录下的`app.json`中配置，局部引入，在需要引入的页面或组件的`index.json`中配置。
@@ -17,95 +18,92 @@ isComponent: true
 
 ## 代码演示
 
-### 基础时间选择器
+<a href="https://developers.weixin.qq.com/s/Am6VDimq73SP" title="在开发者工具中预览效果" target="_blank" rel="noopener noreferrer"> 在开发者工具中预览效果 </a>
 
-<img src="https://tdesign.gtimg.com/miniprogram/readme/datetimepicker.png" width="375px" height="50%">
+<blockquote style="background-color: #d9e1ff; font-size: 15px; line-height: 26px;margin: 16px 0 0;padding: 16px; border-radius: 6px; color: #0052d9" >
+<p>Tips: 请确保开发者工具为打开状态。导入开发者工具后，依次执行：npm i > 构建npm包 > 勾选 "将JS编译成ES5"</p>
+</blockquote>
 
-```html
-<t-date-time-picker
-  title="选择日期和时间"
-  visible="{{datetimeVisible}}"
-  mode="{{['minute']}}"
-  value="{{datetime}}"
-  format="YYYY-MM-DD HH:mm"
-  bindconfirm="onConfirm"
-  disableDate="{{disableDate}}"
-></t-date-time-picker>
-```
+### 组件类型
 
-```js
-Page({
-  data: {
-    datetimeVisible: true,
-    datetime: '2020-08-10 12:50:00',
-    datetimeText: '',
+#### 年月日选择器
 
-    // 指定选择区间起始值
-    disableDate: {
-      before: '2000-01-01 00:00:00',
-      after: '2022-09-09 12:12:12',
-    },
-  },
-  onConfirm(e) {
-    const { value, formatValue } = e?.detail;
+{{ year-month-date }}
 
-    this.setData({
-      datetime: value.valueOf(),
-      datetimeText: formatValue,
-    });
-  },
-});
-```
+#### 年月选择器
+
+{{ year-month }}
+
+### 时间选择器器
+
+包括：`时分秒`、`时分`两个示例
+
+{{ time }}
+
+#### 年月日时分秒选择器
+
+{{ date-all }}
+
+### 组件用法
+
+#### 调整步数
+
+{{ steps }}
+
+#### 不使用 Popup
+
+{{ without-popup }}
 
 ## API
+
 ### DateTimePicker Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
+style | Object | - | 样式 | N
+custom-style | Object | - | 样式，一般用于开启虚拟化组件节点场景 | N
+auto-close | Boolean | false | 自动关闭；在确认、取消、点击遮罩层自动关闭，不需要手动设置 visible | N
 cancel-btn | String | 取消 | 取消按钮文字 | N
 confirm-btn | String | - | 确定按钮文字 | N
-disable-date | Object / Array / Function | - | 禁用日期，示例：['A', 'B'] 表示日期 A 和日期 B 会被禁用。{ from: 'A', to: 'B' } 表示在 A 到 B 之间的日期会被禁用。{ before: 'A', after: 'B' } 表示在 A 之前和在 B 之后的日期都会被禁用。其中 A = '2021-01-01'，B = '2021-02-01'。值类型为 Function 则表示返回值为 true 的日期会被禁用。TS 类型：`DisableDate` `type DisableDate = DateValue | DisableDateObj | ((date: DateValue) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }`。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts) | N
-external-classes | Array | - | 组件类名，分别用于设置组件外层元素、确认按钮、取消按钮、标题等元素类名。`['t-class', 't-class-confirm', 't-class-cancel', 't-class-title']` | N
-footer | Slot | true | 底部内容 | N
-format | String | 'YYYY-MM-DD' | 用于格式化日期，[详细文档](https://day.js.org/docs/en/display/format) | N
-header | Boolean / Slot | true | 头部内容。值为 true 显示空白头部，值为 false 不显示任何内容，值类型为 TNode 表示自定义头部内容 | N
-mode | String / Array | ['year', 'month', 'date'] | 选择器模式，用于表示可以选择到哪一个层级。【示例一】year 或者 ['year'] 表示纯日期选择器，只能选择到年份，只显示年份。【示例二】'hour' 或 ['hour'] 表示纯时间选择器，只能选择到小时维度。【示例三】['year', 'month', 'date', 'hour', 'minute'] 表示，日期和时间 混合选择器，可以选择到具体哪一分钟，显示全部时间：年/月/日/时/分。TS 类型：`DateTimePickerMode` `type DateTimePickerMode = TimeModeValues | Array<TimeModeValues> ` `type TimeModeValues = 'year' | 'month' | 'date' | 'hour' | 'minute' | 'second'`。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts) | N
-show-week | Boolean | false | 是否在日期旁边显示周几（如周一，周二，周日等） | N
+custom-locale | String | zh |  组件国际化语言，目前支持: 简体中文(zh)、(tc)、英文(en)、日语(ja)、韩语(ko)、俄语(ru)等六种语言 | N
+end | String / Number | - | 选择器的最大可选时间，默认为当前时间+10年 | N
+filter | Function | - | 列选项过滤函数，支持自定义列内容。(type 值可为: year, month, date, hour, minute, second)。TS 类型：`(type: TimeModeValues, columns: DateTimePickerColumn) => DateTimePickerColumn` `type DateTimePickerColumn = DateTimePickerColumnItem[]` `interface DateTimePickerColumnItem { label: string,value: string}`。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts) | N
+footer | Slot | - | 底部内容。[通用类型定义](https://github.com/Tencent/tdesign-miniprogram/blob/develop/src/common/common.ts) | N
+format | String | 'YYYY-MM-DD HH:mm:ss' | 用于格式化 pick、change、confirm 事件返回的值，[详细文档](https://day.js.org/docs/en/display/format) | N
+header | Boolean / Slot | true | 头部内容。值为 true 显示空白头部，值为 false 不显示任何内容。[通用类型定义](https://github.com/Tencent/tdesign-miniprogram/blob/develop/src/common/common.ts) | N
+mode | String / Array | 'date' | year = 年；month = 年月；date = 年月日；hour = 年月日时； minute = 年月日时分；当类型为数组时，第一个值控制年月日，第二个值控制时分秒。TS 类型：`DateTimePickerMode` `type DateTimePickerMode = TimeModeValues \| Array<TimeModeValues> ` `type TimeModeValues = 'year' \| 'month' \| 'date' \| 'hour' \| 'minute' \| 'second'`。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts) | N
+popup-props | Object | {} | 透传 `Popup` 组件全部属性。TS 类型：`PopupProps`，[Popup API Documents](./popup?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts) | N
+show-week | Boolean | false | 【开发中】是否在日期旁边显示周几（如周一，周二，周日等） | N
+start | String / Number | - | 选择器的最小可选时间，默认为当前时间-10年 | N
+steps | Object | - | 时间间隔步数，示例：`{ minute: 5 }` | N
 title | String | - | 标题 | N
-value | String / Number | - | 选中值。TS 类型：`DateValue` `type DateValue = string | number`。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts) | N
-default-value | String / Number | undefined | 选中值。非受控属性。TS 类型：`DateValue` `type DateValue = string | number`。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts) | N
+use-popup | Boolean | true | 是否使用弹出层包裹 | N
+value | String / Number | - | 选中值。TS 类型：`DateValue` `type DateValue = string \| number`。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts) | N
+default-value | String / Number | undefined | 选中值。非受控属性。TS 类型：`DateValue` `type DateValue = string \| number`。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts) | N
 visible | Boolean | false | 是否显示 | N
 
 ### DateTimePicker Events
 
 名称 | 参数 | 描述
 -- | -- | --
-cancel | - | 取消按钮点击时触发
-change | `(value: DateValue, formatValue: string)` | 选中值发生变化时触发
-column-change | `(value: DateValue, index: number)` | 每一列选中数据变化时触发
-confirm | `(value: DateValue, formatValue: string)` | 确认按钮点击时触发
+cancel | \- | 取消按钮点击时触发
+change | `(value: DateValue)` | 确认按钮点击时触发
+close | `(trigger: TriggerSource)` | `1.0.1`。关闭时触发。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts)。<br/>`type TriggerSource = 'overlay' \| 'cancel-btn' \| 'confirm-btn'`<br/>
+confirm | `(value: DateValue)` | `1.0.1`。确认按钮点击时触发
+pick | `(value: DateValue)` | 选中值发生变化时触发
 
-### DateTimeRangePicker Props
+### DateTimePicker External Classes
 
-名称 | 类型 | 默认值 | 说明 | 必传
--- | -- | -- | -- | --
-cancel-btn | String | 取消 | 取消按钮文字 | N
-confirm-btn | String | - | 确定按钮文字 | N
-disable-date | Object / Array / Function | - | 禁用日期，示例：['A', 'B'] 表示日期 A 和日期 B 会被禁用。{ from: 'A', to: 'B' } 表示在 A 到 B 之间的日期会被禁用。{ before: 'A', after: 'B' } 表示在 A 之前和在 B 之后的日期都会被禁用。其中 A = '2021-01-01'，B = '2021-02-01'。值类型为 Function 则表示返回值为 true 的日期会被禁用。TS 类型：`DisableRangeDate` `type DisableRangeDate = Array<DateValue> | DisableDateObj | ((context: { date: DateRangeValue; partial: DateRangePickerPartial }) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }` `type DateRangePickerPartial = 'start' | 'end'`。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts) | N
-external-classes | Array | - | 组件类名，分别用于设置组件外层元素、确认按钮、取消按钮、标题等元素类名。`['t-class', 't-class-confirm', 't-class-cancel', 't-class-title']` | N
-format | String | 'YYYY-MM-DD' | 用于格式化日期，[详细文档](https://day.js.org/docs/en/display/format) | N
-mode | String | date | 选择器模式，用于表示可以选择到哪一个层级。可选项：year/month/date/hour/minutes/second | N
-show-week | Boolean | false | 是否在日期旁边显示周几（如周一，周二，周日等） | N
-title | String | - | 标题 | N
-value | Array | - | 选中值。TS 类型：`DateRangeValue` `type DateRangeValue = Array<string | number>`。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts) | N
-default-value | Array | undefined | 选中值。非受控属性。TS 类型：`DateRangeValue` `type DateRangeValue = Array<string | number>`。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts) | N
-visible | Boolean | false | 是否显示 | N
+类名 | 描述
+-- | --
+t-class | 根节点样式类
+t-class-cancel | 取消样式类
+t-class-confirm | 确认样式类
+t-class-title | 标题样式类
 
-### DateTimeRangePicker Events
+### CSS Variables
 
-名称 | 参数 | 描述
+组件提供了下列 CSS 变量，可用于自定义样式。
+名称 | 默认值 | 描述 
 -- | -- | --
-cancel | - | 取消按钮点击时触发
-change | `(value: DateRangeValue)` | 选中值发生变化时触发
-column-change | `(context: DateRangePickerColumnChangeContext)` | 每一列选中数据变化时触发。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/date-time-picker/type.ts)。<br/>`interface DateRangePickerColumnChangeContext { value: DateValue; index: number; partial: DateRangePickerPartial }`<br/>
-confirm | `(detail: { value: DateValue;})` | 确认按钮点击时触发
+--td-data-time-picker-year-width | 128rpx | -

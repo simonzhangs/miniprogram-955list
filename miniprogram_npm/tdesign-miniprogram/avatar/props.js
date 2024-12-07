@@ -6,23 +6,26 @@ const props = {
     badgeProps: {
         type: Object,
     },
-    externalClasses: {
-        type: Array,
+    bordered: {
+        type: Boolean,
+        value: false,
     },
     hideOnLoadFailed: {
         type: Boolean,
         value: false,
     },
     icon: {
-        type: String,
+        type: null,
     },
     image: {
         type: String,
         value: '',
     },
+    imageProps: {
+        type: Object,
+    },
     shape: {
         type: String,
-        value: 'circle',
     },
     size: {
         type: String,

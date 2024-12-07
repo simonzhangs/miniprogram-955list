@@ -25,14 +25,8 @@
   bottom: 0;
   transform: scale(1.5);
 }
-t-steps {
+:host {
   display: flex;
-}
-t-step-item {
-  flex: 1;
-  vertical-align: top;
-  position: relative;
-  align-self: flex-start;
 }
 .t-step--vertical {
   padding-right: 32rpx;
@@ -44,6 +38,9 @@ t-step-item {
 .t-steps--vertical {
   flex-direction: column;
 }
-.t-steps--vertical t-step-item {
-  width: 100%;
+.t-steps--reverse {
+  flex-direction: row-reverse;
+}
+.t-steps--vertical.t-steps--reverse {
+  flex-direction: column-reverse;
 }

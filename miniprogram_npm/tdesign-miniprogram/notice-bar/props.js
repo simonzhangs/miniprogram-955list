@@ -1,22 +1,28 @@
 const props = {
     content: {
-        type: String,
+        type: null,
     },
-    extra: {
+    direction: {
         type: String,
+        value: 'horizontal',
+    },
+    interval: {
+        type: Number,
+        value: 2000,
     },
     marquee: {
-        type: Boolean,
-        optionalTypes: [Object],
+        type: null,
         value: false,
     },
-    prefixIcon: {
+    operation: {
         type: String,
-        value: '',
+    },
+    prefixIcon: {
+        type: null,
+        value: true,
     },
     suffixIcon: {
-        type: String,
-        value: '',
+        type: null,
     },
     theme: {
         type: String,
@@ -25,6 +31,10 @@ const props = {
     visible: {
         type: Boolean,
         value: null,
+    },
+    defaultVisible: {
+        type: Boolean,
+        value: false,
     },
 };
 export default props;

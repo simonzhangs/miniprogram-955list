@@ -9,10 +9,6 @@ import { SuperComponent, wxComponent } from '../common/src/index';
 import Props from './props';
 const { prefix } = config;
 const name = `${prefix}-radio`;
-const iconDefault = {
-    'fill-circle': ['check-circle-filled', 'circle'],
-    'stroke-line': ['check', ''],
-};
 let Radio = class Radio extends SuperComponent {
     constructor() {
         super(...arguments);
@@ -27,6 +23,11 @@ let Radio = class Radio extends SuperComponent {
         this.relations = {
             '../radio-group/radio-group': {
                 type: 'ancestor',
+                linked(parent) {
+                    if (parent.data.borderless) {
+                        this.setData({ borderless: true });
+                    }
+                },
             },
         };
         this.options = {
@@ -34,7 +35,7 @@ let Radio = class Radio extends SuperComponent {
         };
         this.lifetimes = {
             attached() {
-                this.initStatus();
+                this.init();
             },
         };
         this.properties = Object.assign(Object.assign({}, Props), { borderless: {
@@ -47,48 +48,54 @@ let Radio = class Radio extends SuperComponent {
                 event: 'change',
             },
         ];
-        this.observers = {
-            checked(isChecked) {
-                this.setData({
-                    active: isChecked,
-                });
-            },
-        };
         this.data = {
             prefix,
-            active: false,
             classPrefix: name,
             customIcon: false,
+            slotIcon: false,
             optionLinked: false,
             iconVal: [],
+            _placement: '',
+            _disabled: false,
+        };
+        this.observers = {
+            disabled(v) {
+                this.setData({ _disabled: v });
+            },
         };
         this.methods = {
             handleTap(e) {
-                if (this.data.disabled)
-                    return;
+                const { _disabled, readonly, contentDisabled } = this.data;
                 const { target } = e.currentTarget.dataset;
-                if (target === 'text' && this.data.contentDisabled)
+                if (_disabled || readonly || (target === 'text' && contentDisabled))
                     return;
-                const { value, active } = this.data;
-                const [parent] = this.getRelationNodes('../radio-group/radio-group');
-                if (parent) {
-                    parent.updateValue(value);
+                this.doChange();
+            },
+            doChange() {
+                var _a;
+                const { value, checked, allowUncheck } = this.data;
+                const isAllowUncheck = Boolean(allowUncheck || ((_a = this.$parent) === null || _a === void 0 ? void 0 : _a.data.allowUncheck));
+                if (this.$parent) {
+                    this.$parent.updateValue(checked && isAllowUncheck ? null : value);
                 }
                 else {
-                    this._trigger('change', { checked: !active });
+                    this._trigger('change', { checked: isAllowUncheck ? !checked : true });
                 }
             },
-            initStatus() {
+            init() {
+                var _a, _b, _c, _d, _e, _f;
                 const { icon } = this.data;
-                const isIdArr = Array.isArray(icon);
+                const isIdArr = Array.isArray(((_a = this.$parent) === null || _a === void 0 ? void 0 : _a.icon) || icon);
                 this.setData({
                     customIcon: isIdArr,
-                    iconVal: !isIdArr ? iconDefault[icon] : this.data.icon,
+                    slotIcon: icon === 'slot',
+                    iconVal: isIdArr ? ((_b = this.$parent) === null || _b === void 0 ? void 0 : _b.icon) || icon : [],
+                    _placement: (_f = (_c = this.data.placement) !== null && _c !== void 0 ? _c : (_e = (_d = this.$parent) === null || _d === void 0 ? void 0 : _d.data) === null || _e === void 0 ? void 0 : _e.placement) !== null && _f !== void 0 ? _f : 'left',
                 });
             },
             setDisabled(disabled) {
                 this.setData({
-                    disabled: this.data.disabled || disabled,
+                    _disabled: this.data.disabled || disabled,
                 });
             },
         };

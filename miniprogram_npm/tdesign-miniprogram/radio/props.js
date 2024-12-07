@@ -1,11 +1,11 @@
 const props = {
-    align: {
-        type: String,
-        value: 'left',
-    },
     allowUncheck: {
         type: Boolean,
         value: false,
+    },
+    block: {
+        type: Boolean,
+        value: true,
     },
     checked: {
         type: Boolean,
@@ -15,10 +15,6 @@ const props = {
         type: Boolean,
         value: false,
     },
-    color: {
-        type: String,
-        value: '#0052d9',
-    },
     content: {
         type: String,
     },
@@ -27,16 +23,12 @@ const props = {
         value: false,
     },
     disabled: {
-        type: Boolean,
+        type: null,
         value: undefined,
     },
-    externalClasses: {
-        type: Array,
-    },
     icon: {
-        type: String,
-        optionalTypes: [Array],
-        value: 'fill-circle',
+        type: null,
+        value: 'circle',
     },
     label: {
         type: String,
@@ -53,9 +45,16 @@ const props = {
         type: String,
         value: '',
     },
-    value: {
+    placement: {
         type: String,
-        optionalTypes: [Number, Boolean],
+        value: 'left',
+    },
+    readonly: {
+        type: Boolean,
+        value: false,
+    },
+    value: {
+        type: null,
         value: false,
     },
 };

@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import config from '../common/config';
 import { SuperComponent, wxComponent } from '../common/src/index';
-import Props from '../radio/radio-group-props';
+import props from './props';
 const { prefix } = config;
 const name = `${prefix}-radio-group`;
 let RadioGroup = class RadioGroup extends SuperComponent {
@@ -30,31 +30,39 @@ let RadioGroup = class RadioGroup extends SuperComponent {
                 },
             },
         };
-        this.properties = Object.assign({}, Props);
+        this.properties = props;
         this.controlledProps = [
             {
                 key: 'value',
                 event: 'change',
             },
         ];
-        this.lifetimes = {
-            attached() {
+        this.observers = {
+            value(v) {
+                this.getChildren().forEach((item) => {
+                    item.setData({
+                        checked: v === item.data.value,
+                    });
+                });
+            },
+            options() {
                 this.initWithOptions();
             },
-        };
-        this.observers = {
-            value() {
-                this.getChilds().forEach((item) => {
-                    item.setData({
-                        checked: this.data.value === item.data.value,
-                    });
+            disabled(v) {
+                var _a;
+                if ((_a = this.data.options) === null || _a === void 0 ? void 0 : _a.length) {
+                    this.initWithOptions();
+                    return;
+                }
+                this.getChildren().forEach((item) => {
+                    item.setDisabled(v);
                 });
             },
         };
         this.methods = {
-            getChilds() {
-                let items = this.getRelationNodes('../radio/radio');
-                if (!items.length) {
+            getChildren() {
+                let items = this.$children;
+                if (!(items === null || items === void 0 ? void 0 : items.length)) {
                     items = this.selectAllComponents(`.${prefix}-radio-option`);
                 }
                 return items;
@@ -63,26 +71,33 @@ let RadioGroup = class RadioGroup extends SuperComponent {
                 this._trigger('change', { value });
             },
             handleRadioChange(e) {
-                const { value } = e.target.dataset;
-                this.updateValue(value);
+                const { checked } = e.detail;
+                const { value, index, allowUncheck } = e.target.dataset;
+                this._trigger('change', checked === false && allowUncheck ? { value: null, index } : { value, index });
             },
             initWithOptions() {
-                const { options } = this.data;
+                const { options, value, keys, disabled } = this.data;
                 if (!(options === null || options === void 0 ? void 0 : options.length) || !Array.isArray(options)) {
+                    this.setData({
+                        radioOptions: [],
+                    });
                     return;
                 }
                 const optionsValue = [];
                 try {
                     options.forEach((element) => {
+                        var _a, _b, _c;
                         const typeName = typeof element;
                         if (typeName === 'number' || typeName === 'string') {
                             optionsValue.push({
                                 label: `${element}`,
                                 value: element,
+                                checked: value === element,
+                                disabled,
                             });
                         }
                         else if (typeName === 'object') {
-                            optionsValue.push(Object.assign({}, element));
+                            optionsValue.push(Object.assign(Object.assign({}, element), { label: element[(_a = keys === null || keys === void 0 ? void 0 : keys.label) !== null && _a !== void 0 ? _a : 'label'], value: element[(_b = keys === null || keys === void 0 ? void 0 : keys.value) !== null && _b !== void 0 ? _b : 'value'], checked: value === element[(_c = keys === null || keys === void 0 ? void 0 : keys.value) !== null && _c !== void 0 ? _c : 'value'], disabled: element.disabled || disabled }));
                         }
                     });
                     this.setData({

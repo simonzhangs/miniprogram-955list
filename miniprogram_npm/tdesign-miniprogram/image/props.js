@@ -3,8 +3,8 @@ const props = {
         type: String,
         value: 'default',
     },
-    externalClasses: {
-        type: Array,
+    height: {
+        type: null,
     },
     lazy: {
         type: Boolean,
@@ -14,25 +14,32 @@ const props = {
         type: String,
         value: 'default',
     },
+    mode: {
+        type: String,
+        value: 'scaleToFill',
+    },
     shape: {
         type: String,
         value: 'square',
+    },
+    showMenuByLongpress: {
+        type: Boolean,
+        value: false,
     },
     src: {
         type: String,
         value: '',
     },
-    mode: {
+    tId: {
         type: String,
-        value: 'scaleToFill',
+        value: '',
     },
     webp: {
         type: Boolean,
         value: false,
     },
-    showMenuByLongpress: {
-        type: Boolean,
-        value: false,
+    width: {
+        type: null,
     },
 };
 export default props;

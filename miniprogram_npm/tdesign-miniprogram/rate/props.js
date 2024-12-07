@@ -4,8 +4,7 @@ const props = {
         value: false,
     },
     color: {
-        type: String,
-        optionalTypes: [Array],
+        type: null,
         value: '#ED7B2F',
     },
     count: {
@@ -13,12 +12,23 @@ const props = {
         value: 5,
     },
     disabled: {
-        type: Boolean,
-        value: false,
+        type: null,
+        value: undefined,
     },
     gap: {
-        type: Number,
-        value: 6,
+        type: null,
+        value: 8,
+    },
+    icon: {
+        type: null,
+    },
+    iconPrefix: {
+        type: String,
+        value: undefined,
+    },
+    placement: {
+        type: String,
+        value: 'top',
     },
     showText: {
         type: Boolean,
@@ -26,7 +36,7 @@ const props = {
     },
     size: {
         type: String,
-        value: '',
+        value: '24px',
     },
     texts: {
         type: Array,

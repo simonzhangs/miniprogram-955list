@@ -7,171 +7,203 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './props';
+import { unitConvert, systemInfo } from '../common/utils';
 const { prefix } = config;
 const name = `${prefix}-pull-down-refresh`;
 let PullDownRefresh = class PullDownRefresh extends SuperComponent {
     constructor() {
         super(...arguments);
-        this.isScrollToTop = true;
         this.pixelRatio = 1;
         this.startPoint = null;
         this.isPulling = false;
-        this.defaultBarHeight = 0;
-        this.maxBarHeight = 276;
-        this.loadingBarHeight = 200;
-        this.refreshTimeout = 3000;
-        this.minRefreshTimeFlag = 0;
-        this.minRefreshStatusShowTimeFlag = 0;
         this.maxRefreshAnimateTimeFlag = 0;
         this.closingAnimateTimeFlag = 0;
-        this.externalClasses = ['t--class', 't-class-loading', 't-class-tex', 't-class-indicator'];
+        this.refreshStatusTimer = null;
+        this.externalClasses = [`${prefix}-class`, `${prefix}-class-loading`, `${prefix}-class-text`, `${prefix}-class-indicator`];
         this.options = {
             multipleSlots: true,
+            pureDataPattern: /^_/,
+        };
+        this.relations = {
+            '../back-top/back-top': {
+                type: 'descendant',
+            },
         };
         this.properties = props;
         this.data = {
+            prefix,
             classPrefix: name,
-            barHeight: this.defaultBarHeight,
-            refreshStatus: 0,
-            refreshTypes: ['not-start', 'wait-start', 'refreshing', 'success', 'finishing'],
-            rotate: 0,
+            barHeight: 0,
+            tipsHeight: 0,
+            refreshStatus: -1,
+            loosing: false,
+            enableToRefresh: true,
+            scrollTop: 0,
+            _maxBarHeight: 0,
+            _loadingBarHeight: 0,
         };
-    }
-    attached() {
-        const systemInfo = wx.getSystemInfoSync();
-        this.screenWidth = systemInfo.screenWidth;
-        this.pixelRatio = 750 / systemInfo.screenWidth;
-        this.ios = !!(systemInfo.system.toLowerCase().search('ios') + 1);
-        const maxBarHeight = this.properties.maxBarHeight;
-        if (maxBarHeight) {
-            this.maxBarHeight = maxBarHeight;
-        }
-        const loadingBarHeight = this.properties.loadingBarHeight;
-        if (loadingBarHeight) {
-            this.loadingBarHeight = loadingBarHeight;
-        }
-        const refreshTimeout = this.properties.refreshTimeout;
-        if (refreshTimeout) {
-            this.refreshTimeout = refreshTimeout;
-        }
-    }
-    detached() {
-        this.cleanTimeFlag();
-    }
-    onPageScroll(e) {
-        const { scrollTop } = e;
-        this.isScrollToTop = scrollTop === 0;
-    }
-    cleanTimeFlag() {
-        clearTimeout(this.minRefreshTimeFlag);
-        clearTimeout(this.minRefreshStatusShowTimeFlag);
-        clearTimeout(this.maxRefreshAnimateTimeFlag);
-        clearTimeout(this.closingAnimateTimeFlag);
-    }
-    onTouchStart(e) {
-        if (!this.isScrollToTop || this.isPulling)
-            return;
-        const { touches } = e;
-        if (touches.length !== 1)
-            return;
-        const { pageX, pageY } = touches[0];
-        this.startPoint = { pageX, pageY };
-        this.isPulling = true;
-    }
-    onTouchMove(e) {
-        if (!this.isScrollToTop || !this.startPoint)
-            return;
-        const { touches } = e;
-        if (touches.length !== 1)
-            return;
-        const { pageY } = touches[0];
-        const offset = pageY - this.startPoint.pageY;
-        const barHeight = this.toRpx(offset);
-        if (barHeight > 0) {
-            if (barHeight > this.maxBarHeight) {
-                this.setRefreshBarHeight(this.maxBarHeight);
-                this.startPoint.pageY = pageY - this.toPx(this.maxBarHeight);
-            }
-            else {
-                this.setRefreshBarHeight(barHeight);
-            }
-        }
-    }
-    onTouchEnd(e) {
-        if (!this.startPoint)
-            return;
-        const { changedTouches } = e;
-        if (changedTouches.length !== 1)
-            return;
-        const { pageY } = changedTouches[0];
-        const barHeight = this.toRpx(pageY - this.startPoint.pageY);
-        this.startPoint = null;
-        if (barHeight > this.loadingBarHeight) {
-            this.setData({
-                barHeight: this.loadingBarHeight,
-                rotate: 0,
-                refreshStatus: 2,
-            });
-            const startTime = Date.now();
-            const callback = () => {
-                const remainTime = 1000 - (Date.now() - startTime);
-                this.minRefreshTimeFlag = setTimeout(() => {
-                    this.minRefreshTimeFlag = 0;
-                    if (this.maxRefreshAnimateTimeFlag) {
-                        clearTimeout(this.maxRefreshAnimateTimeFlag);
-                        this.maxRefreshAnimateTimeFlag = 0;
-                        this.setData({ refreshStatus: 3 });
-                        this.minRefreshStatusShowTimeFlag = setTimeout(() => {
-                            this.minRefreshStatusShowTimeFlag = 0;
-                            this.close();
-                        }, 1000);
+        this.lifetimes = {
+            attached() {
+                const { screenWidth } = systemInfo;
+                const { loadingTexts, maxBarHeight, loadingBarHeight } = this.properties;
+                this.setData({
+                    _maxBarHeight: unitConvert(maxBarHeight),
+                    _loadingBarHeight: unitConvert(loadingBarHeight),
+                    loadingTexts: Array.isArray(loadingTexts) && loadingTexts.length >= 4
+                        ? loadingTexts
+                        : ['下拉刷新', '松手刷新', '正在刷新', '刷新完成'],
+                });
+                this.pixelRatio = 750 / screenWidth;
+            },
+            detached() {
+                clearTimeout(this.maxRefreshAnimateTimeFlag);
+                clearTimeout(this.closingAnimateTimeFlag);
+                this.resetTimer();
+            },
+        };
+        this.observers = {
+            value(val) {
+                if (!val) {
+                    clearTimeout(this.maxRefreshAnimateTimeFlag);
+                    if (this.data.refreshStatus > 0) {
+                        this.setData({
+                            refreshStatus: 3,
+                        });
                     }
-                }, remainTime > 0 ? remainTime : 0);
-            };
-            this.triggerEvent('refresh', { callback });
-            this.maxRefreshAnimateTimeFlag = setTimeout(() => {
-                this.maxRefreshAnimateTimeFlag = 0;
-                if (this.data.refreshStatus === 2) {
-                    this.triggerEvent('timeout');
-                    this.close();
+                    this.setData({ barHeight: 0 });
                 }
-            }, this.refreshTimeout);
-        }
-        else {
-            this.close();
-        }
-    }
-    toRpx(v) {
-        return v * this.pixelRatio;
-    }
-    toPx(v) {
-        return v / this.pixelRatio;
-    }
-    setRefreshBarHeight(barHeight) {
-        const data = { barHeight };
-        if (barHeight >= this.loadingBarHeight) {
-            data.refreshStatus = 1;
-            data.rotate = -720;
-        }
-        else {
-            data.refreshStatus = 0;
-            data.rotate = (barHeight / this.loadingBarHeight) * -720;
-        }
-        return new Promise((resolve) => {
-            this.setData(data, () => resolve(barHeight));
-        });
-    }
-    close() {
-        this.setData({ barHeight: this.defaultBarHeight, refreshStatus: 4 });
-        this.closingAnimateTimeFlag = setTimeout(() => {
-            this.closingAnimateTimeFlag = 0;
-            if (this.minRefreshStatusShowTimeFlag) {
-                clearTimeout(this.minRefreshStatusShowTimeFlag);
-                this.minRefreshStatusShowTimeFlag = 0;
-            }
-            this.setData({ refreshStatus: 0 });
-            this.isPulling = false;
-        }, 1000);
+                else {
+                    this.doRefresh();
+                }
+            },
+            barHeight(val) {
+                this.resetTimer();
+                if (val === 0 && this.data.refreshStatus !== -1) {
+                    this.refreshStatusTimer = setTimeout(() => {
+                        this.setData({ refreshStatus: -1 });
+                    }, 240);
+                }
+                this.setData({ tipsHeight: Math.min(val, this.data._loadingBarHeight) });
+            },
+            maxBarHeight(v) {
+                this.setData({ _maxBarHeight: unitConvert(v) });
+            },
+            loadingBarHeight(v) {
+                this.setData({ _loadingBarHeight: unitConvert(v) });
+            },
+        };
+        this.methods = {
+            resetTimer() {
+                if (this.refreshStatusTimer) {
+                    clearTimeout(this.refreshStatusTimer);
+                    this.refreshStatusTimer = null;
+                }
+            },
+            onScrollToBottom() {
+                this.triggerEvent('scrolltolower');
+            },
+            onScrollToTop() {
+                this.setData({
+                    enableToRefresh: true,
+                });
+            },
+            onScroll(e) {
+                const { scrollTop } = e.detail;
+                this.setData({
+                    enableToRefresh: scrollTop === 0,
+                });
+                this.triggerEvent('scroll', { scrollTop });
+            },
+            onTouchStart(e) {
+                if (this.isPulling || !this.data.enableToRefresh || this.properties.disabled)
+                    return;
+                const { touches } = e;
+                if (touches.length !== 1)
+                    return;
+                const { pageX, pageY } = touches[0];
+                this.setData({ loosing: false });
+                this.startPoint = { pageX, pageY };
+                this.isPulling = true;
+            },
+            onTouchMove(e) {
+                if (!this.startPoint || this.properties.disabled)
+                    return;
+                const { touches } = e;
+                if (touches.length !== 1)
+                    return;
+                const { pageY } = touches[0];
+                const offset = pageY - this.startPoint.pageY;
+                if (offset > 0) {
+                    this.setRefreshBarHeight(offset);
+                }
+            },
+            onTouchEnd(e) {
+                if (!this.startPoint || this.properties.disabled)
+                    return;
+                const { changedTouches } = e;
+                if (changedTouches.length !== 1)
+                    return;
+                const { pageY } = changedTouches[0];
+                const barHeight = pageY - this.startPoint.pageY;
+                this.startPoint = null;
+                this.isPulling = false;
+                this.setData({ loosing: true });
+                if (barHeight > this.data._loadingBarHeight) {
+                    this._trigger('change', { value: true });
+                    this.triggerEvent('refresh');
+                }
+                else {
+                    this.setData({ barHeight: 0 });
+                }
+            },
+            onDragStart(e) {
+                const { scrollTop, scrollLeft } = e.detail;
+                this.triggerEvent('dragstart', { scrollTop, scrollLeft });
+            },
+            onDragging(e) {
+                const { scrollTop, scrollLeft } = e.detail;
+                this.triggerEvent('dragging', { scrollTop, scrollLeft });
+            },
+            onDragEnd(e) {
+                const { scrollTop, scrollLeft } = e.detail;
+                this.triggerEvent('dragend', { scrollTop, scrollLeft });
+            },
+            doRefresh() {
+                if (this.properties.disabled)
+                    return;
+                this.setData({
+                    barHeight: this.data._loadingBarHeight,
+                    refreshStatus: 2,
+                    loosing: true,
+                });
+                this.maxRefreshAnimateTimeFlag = setTimeout(() => {
+                    this.maxRefreshAnimateTimeFlag = null;
+                    if (this.data.refreshStatus === 2) {
+                        this.triggerEvent('timeout');
+                        this._trigger('change', { value: false });
+                    }
+                }, this.properties.refreshTimeout);
+            },
+            setRefreshBarHeight(value) {
+                const barHeight = Math.min(value, this.data._maxBarHeight);
+                const data = { barHeight };
+                if (barHeight >= this.data._loadingBarHeight) {
+                    data.refreshStatus = 1;
+                }
+                else {
+                    data.refreshStatus = 0;
+                }
+                return new Promise((resolve) => {
+                    this.setData(data, () => resolve(barHeight));
+                });
+            },
+            setScrollTop(scrollTop) {
+                this.setData({ scrollTop });
+            },
+            scrollToTop() {
+                this.setScrollTop(0);
+            },
+        };
     }
 };
 PullDownRefresh = __decorate([

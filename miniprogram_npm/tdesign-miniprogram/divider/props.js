@@ -10,18 +10,7 @@ const props = {
         type: Boolean,
         value: false,
     },
-    externalClasses: {
-        type: Array,
-    },
     layout: {
-        type: String,
-        value: 'horizontal',
-    },
-    lineColor: {
-        type: String,
-        value: '',
-    },
-    theme: {
         type: String,
         value: 'horizontal',
     },

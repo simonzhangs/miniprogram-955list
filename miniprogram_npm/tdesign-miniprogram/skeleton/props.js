@@ -1,16 +1,18 @@
 const props = {
     animation: {
         type: String,
+        value: 'none',
     },
-    externalClasses: {
-        type: Array,
+    delay: {
+        type: Number,
+        value: 0,
     },
     loading: {
         type: Boolean,
+        value: true,
     },
     rowCol: {
         type: Array,
-        value: [1, 1, 1, { width: '70%' }],
     },
     theme: {
         type: String,

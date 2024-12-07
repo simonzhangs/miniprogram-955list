@@ -1,7 +1,8 @@
 {
   "component": true,
+  "styleIsolation": "apply-shared",
   "usingComponents": {
-    "t-transition": "../transition/transition",
+    "t-overlay": "../overlay/overlay",
     "t-icon": "../icon/icon"
   }
 }

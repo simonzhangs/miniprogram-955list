@@ -7,12 +7,24 @@ const props = {
         type: String,
         value: 'left',
     },
+    alwaysEmbed: {
+        type: Boolean,
+        value: false,
+    },
+    autoFocus: {
+        type: Boolean,
+        value: false,
+    },
     borderless: {
         type: Boolean,
         value: false,
     },
+    clearTrigger: {
+        type: String,
+        value: 'always',
+    },
     clearable: {
-        type: Boolean,
+        type: null,
         value: false,
     },
     confirmHold: {
@@ -23,16 +35,21 @@ const props = {
         type: String,
         value: 'done',
     },
-    disabled: {
-        type: Boolean,
-        value: false,
+    cursor: {
+        type: Number,
+        required: true,
     },
-    errorMessage: {
+    cursorColor: {
         type: String,
         value: '',
     },
-    externalClasses: {
-        type: Array,
+    cursorSpacing: {
+        type: Number,
+        value: 0,
+    },
+    disabled: {
+        type: null,
+        value: undefined,
     },
     focus: {
         type: Boolean,
@@ -41,38 +58,83 @@ const props = {
     format: {
         type: null,
     },
+    holdKeyboard: {
+        type: Boolean,
+        value: false,
+    },
     label: {
         type: String,
+    },
+    layout: {
+        type: String,
+        value: 'horizontal',
     },
     maxcharacter: {
         type: Number,
     },
     maxlength: {
         type: Number,
+        value: -1,
     },
     placeholder: {
         type: String,
         value: undefined,
     },
-    prefixIcon: {
+    placeholderClass: {
         type: String,
+        value: 'input-placeholder',
+    },
+    placeholderStyle: {
+        type: String,
+        value: '',
+        required: true,
+    },
+    prefixIcon: {
+        type: null,
     },
     readonly: {
-        type: Boolean,
-        value: false,
+        type: null,
+        value: undefined,
     },
-    size: {
+    safePasswordCertPath: {
         type: String,
-        value: 'small',
+        value: '',
+    },
+    safePasswordCustomHash: {
+        type: String,
+        value: '',
+    },
+    safePasswordLength: {
+        type: Number,
+    },
+    safePasswordNonce: {
+        type: String,
+        value: '',
+    },
+    safePasswordSalt: {
+        type: String,
+        value: '',
+    },
+    safePasswordTimeStamp: {
+        type: Number,
+    },
+    selectionEnd: {
+        type: Number,
+        value: -1,
+    },
+    selectionStart: {
+        type: Number,
+        value: -1,
     },
     status: {
         type: String,
+        value: 'default',
     },
     suffix: {
         type: String,
     },
     suffixIcon: {
-        type: String,
+        type: null,
     },
     tips: {
         type: String,
@@ -82,13 +144,7 @@ const props = {
         value: 'text',
     },
     value: {
-        type: String,
-        optionalTypes: [Number],
-        value: null,
-    },
-    defaultValue: {
-        type: String,
-        optionalTypes: [Number],
+        type: null,
     },
 };
 export default props;

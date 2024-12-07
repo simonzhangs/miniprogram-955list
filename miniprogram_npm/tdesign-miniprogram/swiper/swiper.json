@@ -1,7 +1,8 @@
 {
   "component": true,
+  "styleIsolation": "apply-shared",
   "usingComponents": {
-    "t-swiper-item": "./swiper-item",
-    "t-swiper-nav": "./swiper-nav"
+    "t-swiper-nav": "../swiper-nav/swiper-nav",
+    "t-image": "../image/image"
   }
 }

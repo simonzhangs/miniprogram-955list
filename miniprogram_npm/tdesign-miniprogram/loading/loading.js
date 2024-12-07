@@ -21,7 +21,7 @@ let Loading = class Loading extends SuperComponent {
         this.options = {
             multipleSlots: true,
         };
-        this.properties = props;
+        this.properties = Object.assign({}, props);
         this.timer = null;
         this.observers = {
             loading(cur) {

@@ -9,8 +9,12 @@ const props = {
     config: {
         type: Object,
     },
-    deleteBtn: {
-        type: String,
+    disabled: {
+        type: null,
+        value: undefined,
+    },
+    draggable: {
+        type: null,
     },
     files: {
         type: Array,
@@ -41,8 +45,15 @@ const props = {
         type: null,
     },
     sizeLimit: {
-        type: Number,
-        optionalTypes: [Object],
+        type: null,
+    },
+    source: {
+        type: String,
+        value: 'media',
+    },
+    transition: {
+        type: Object,
+        value: { backTransition: true, duration: 300, timingFunction: 'ease' },
     },
 };
 export default props;

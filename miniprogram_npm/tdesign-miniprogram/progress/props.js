@@ -1,11 +1,10 @@
 const props = {
     color: {
-        type: String,
-        optionalTypes: [Object, Array],
+        type: null,
         value: '',
     },
     label: {
-        type: Boolean,
+        type: null,
         value: true,
     },
     percentage: {
@@ -16,8 +15,15 @@ const props = {
         type: String,
     },
     strokeWidth: {
+        type: null,
+    },
+    style: {
         type: String,
-        optionalTypes: [Number],
+        value: '',
+    },
+    theme: {
+        type: String,
+        value: 'line',
     },
     trackColor: {
         type: String,

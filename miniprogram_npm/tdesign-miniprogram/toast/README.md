@@ -5,6 +5,7 @@ spline: message
 isComponent: true
 ---
 
+<span class="coverages-badge" style="margin-right: 10px"><img src="https://img.shields.io/badge/coverages%3A%20lines-100%25-blue" /></span><span class="coverages-badge" style="margin-right: 10px"><img src="https://img.shields.io/badge/coverages%3A%20functions-100%25-blue" /></span><span class="coverages-badge" style="margin-right: 10px"><img src="https://img.shields.io/badge/coverages%3A%20statements-100%25-blue" /></span><span class="coverages-badge" style="margin-right: 10px"><img src="https://img.shields.io/badge/coverages%3A%20branches-83%25-blue" /></span>
 ## 引入
 
 全局引入，在 miniprogram 根目录下的`app.json`中配置，局部引入，在需要引入的页面或组件的`index.json`中配置。
@@ -17,129 +18,64 @@ isComponent: true
 
 ## 代码演示
 
-### 基础轻提示
+<a href="https://developers.weixin.qq.com/s/l0azMimf7CSu" title="在开发者工具中预览效果" target="_blank" rel="noopener noreferrer"> 在开发者工具中预览效果 </a>
 
-用 API `Toast` 方法调用轻提示。
+<blockquote style="background-color: #d9e1ff; font-size: 15px; line-height: 26px;margin: 16px 0 0;padding: 16px; border-radius: 6px; color: #0052d9" >
+<p>Tips: 请确保开发者工具为打开状态。导入开发者工具后，依次执行：npm i > 构建npm包 > 勾选 "将JS编译成ES5"</p>
+</blockquote>
 
-```html
-<t-toast id="t-toast" />
-```
+### 基础提示
 
-```js
-import Toast from 'tdesign-miniprogram/toast/index';
-```
+{{ base }}
 
-### 纯文本的轻提示
+### 组件状态
 
-<img src="https://tdesign.gtimg.com/miniprogram/readme/toast-1.png" width="20%" height="20%">
+{{ theme }}
 
-```js
-Toast({
-  context: this,
-  selector: '#t-toast',
-  message: '轻提示文字内容',
-});
-```
+### 显示遮罩
+{{ cover }}
 
-### 带横向图标的轻提示
-
-<img src="https://tdesign.gtimg.com/miniprogram/readme/toast-3.png" width="20%" height="20%">
-
-```js
-Toast({
-  context: this,
-  selector: '#t-toast',
-  message: '带图标横向',
-  icon: 'check-circle',
-});
-```
-
-### 带竖向图标的轻提示
-
-<img src="https://tdesign.gtimg.com/miniprogram/readme/toast-4.png" width="20%" height="20%">
-
-```js
-Toast({
-  context: this,
-  selector: '#t-toast',
-  message: '带图标竖向',
-  icon: 'star',
-  direction: 'column',
-});
-```
-
-### 默认轻提示
-
-<img src="https://tdesign.gtimg.com/miniprogram/readme/toast-2.png" width="375px" height="20%">
-
-```js
-Toast({
-  context: this,
-  selector: '#t-toast',
-  message: '成功文案',
-  theme: 'fail',
-});
-
-Toast({
-  context: this,
-  selector: '#t-toast',
-  message: '警告文案',
-  theme: 'success',
-});
-
-Toast({
-  context: this,
-  selector: '#t-toast',
-  message: '加载中...',
-  theme: 'loading',
-  direction: 'column',
-});
-```
-
-### 不同位置的轻提示
-
-```js
-Toast({
-  context: this,
-  selector: '#t-toast',
-  message: '顶部-展示1秒',
-  direction: 'column',
-  placement: 'top',
-  duration: 1000,
-  icon: 'star',
-});
-
-Toast({
-  context: this,
-  selector: '#t-toast',
-  message: '中间-展示2秒',
-  direction: 'column',
-  duration: 2000,
-  icon: 'star',
-});
-
-Toast({
-  context: this,
-  selector: '#t-toast',
-  message: '底部-展示3秒',
-  direction: 'column',
-  placement: 'bottom',
-  duration: 3000,
-  icon: 'star',
-});
-```
-
+### 手动关闭
+{{ close }}
 ## API
 
 ### Toast Props
 
-| 名称                   | 类型          | 默认值 | 说明                                     | 必传 |
-| ---------------------- | ------------- | ------ | ---------------------------------------- | ---- |
-| direction              | String        | row    | 图标排列方式。可选项：`row`/`column`         | N    |
-| duration               | Number        | 2000   | 弹窗显示毫秒数                           | N    |
-| external-classes       | Array         | -      | 组件类名。`['t-class']`                  | N    |
-| icon                   | String        | -      | 自定义图标                               | N    |
-| message                | String / Slot | -      | 弹窗显示文字                             | N    |
-| placement              | String        | middle | 弹窗展示位置。可选项： `top`/`middle`/`bottom` | N    |
-| prevent-scroll-through | Boolean       | false  | 防止滚动穿透，即不允许点击和滚动         | N    |
-| theme                  | String        | -      | 提示类型。可选项：`loading`/`success`/`fail`   | N    |
+名称 | 类型 | 默认值 | 描述 | 必传
+-- | -- | -- | -- | --
+style | Object | - | 样式 | N
+custom-style | Object | - | 样式，一般用于开启虚拟化组件节点场景 | N
+direction | String | row | 图标排列方式。可选项：row/column | N
+duration | Number | 2000 | 弹窗显示毫秒数 | N
+icon | String / Object / Slot | - | 自定义图标。传入对象则透传至 Icon 组件。[通用类型定义](https://github.com/Tencent/tdesign-miniprogram/blob/develop/src/common/common.ts) | N
+message | String / Slot | - | 弹窗显示文字。[通用类型定义](https://github.com/Tencent/tdesign-miniprogram/blob/develop/src/common/common.ts) | N
+overlay-props | Object | - | 遮罩层属性，透传至 Overlay。TS 类型：`OverlayProps `，[Overlay API Documents](./overlay?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/toast/type.ts) | N
+placement | String | middle | 弹窗展示位置。可选项： top/middle/bottom | N
+prevent-scroll-through | Boolean | false | 防止滚动穿透，即不允许点击和滚动 | N
+show-overlay | Boolean | false | 是否显示遮罩层 | N
+theme | String | - | 提示类型。可选项：loading/success/error | N
+using-custom-navbar | Boolean | false | 是否使用了自定义导航栏 | N
+
+### Toast Events
+
+名称 | 参数 | 描述
+-- | -- | --
+close | \- | 轻提示隐藏的时候触发
+destroy | \- | 轻提示销毁的时候触发
+### Toast External Classes
+
+类名 | 描述
+-- | --
+t-class | 根节点样式类
+
+### CSS Variables
+
+组件提供了下列 CSS 变量，可用于自定义样式。
+名称 | 默认值 | 描述 
+-- | -- | --
+--td-toast-bg-color | @font-gray-2 | - 
+--td-toast-color | @font-white-1 | - 
+--td-toast-column-icon-size | 64rpx | - 
+--td-toast-max-width | 374rpx | - 
+--td-toast-radius | 8rpx | - 
+--td-toast-row-icon-size | 48rpx | -

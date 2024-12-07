@@ -1,18 +1,19 @@
 const props = {
-    colors: {
-        type: Array,
-    },
     customValue: {
         type: Array,
         value: [true, false],
     },
     disabled: {
-        type: Boolean,
-        value: false,
+        type: null,
+        value: undefined,
+    },
+    icon: {
+        type: Array,
+        value: [],
     },
     label: {
-        type: String,
-        value: '',
+        type: Array,
+        value: [],
     },
     loading: {
         type: Boolean,
@@ -23,13 +24,11 @@ const props = {
         value: 'medium',
     },
     value: {
-        type: String,
-        optionalTypes: [Number, Boolean],
+        type: null,
         value: null,
     },
     defaultValue: {
-        type: String,
-        optionalTypes: [Number, Boolean],
+        type: null,
         value: null,
     },
 };

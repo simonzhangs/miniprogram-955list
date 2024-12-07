@@ -1,6 +1,5 @@
 {
   "component": true,
-  "usingComponents": {
-    "t-tab-bar-item": "./tab-bar-item"
-  }
+  "styleIsolation": "apply-shared",
+  "usingComponents": {}
 }

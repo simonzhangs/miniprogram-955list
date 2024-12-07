@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import avatarProps from './props';
+import { setIcon } from '../common/utils';
 const { prefix } = config;
 const name = `${prefix}-avatar`;
 let Avatar = class Avatar extends SuperComponent {
@@ -28,44 +29,41 @@ let Avatar = class Avatar extends SuperComponent {
             classPrefix: name,
             isShow: true,
             zIndex: 0,
-            isChild: false,
         };
         this.relations = {
-            './avatar-group': {
+            '../avatar-group/avatar-group': {
                 type: 'ancestor',
-                linked(target) {
-                    this.parent = target;
+                linked(parent) {
+                    this.parent = parent;
+                    this.setData({
+                        shape: this.data.shape || parent.data.shape || 'circle',
+                        size: this.data.size || parent.data.size,
+                        bordered: true,
+                    });
                 },
             },
         };
-        this.methods = {
-            updateIsChild(isChild) {
-                this.setData({
-                    isChild,
-                });
+        this.observers = {
+            icon(icon) {
+                const obj = setIcon('icon', icon, '');
+                this.setData(Object.assign({}, obj));
             },
-            updateShow() {
+        };
+        this.methods = {
+            hide() {
                 this.setData({
                     isShow: false,
                 });
             },
-            updateSize(size) {
-                if (this.properties.size)
-                    return;
-                this.setData({ size });
-            },
-            updateCascading(zIndex) {
-                this.setData({ zIndex });
+            onLoadError(e) {
+                if (this.properties.hideOnLoadFailed) {
+                    this.setData({
+                        isShow: false,
+                    });
+                }
+                this.triggerEvent('error', e.detail);
             },
         };
-    }
-    onLoadError(e) {
-        if (this.properties.hideOnLoadFailed) {
-            this.setData({
-                isShow: false,
-            });
-        }
-        this.triggerEvent('error', e.detail);
     }
 };
 Avatar = __decorate([

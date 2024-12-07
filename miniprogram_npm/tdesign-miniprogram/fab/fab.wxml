@@ -1,9 +1,7 @@
-<import src="../common/template/button.wxml" />
+<import src="./template/view.wxml" />
+<import src="./template/draggable.wxml" />
 
-<view class="{{classPrefix}} {{prefix}}-class" style="{{style}}">
-  <template
-    is="button"
-    class="{{classPrefix}}__button"
-    data="{{ ...baseButtonProps, icon, ...buttonProps, externalClass: prefix + '-class-button'}}"
-  />
-</view>
+<template
+  is="{{draggable ? 'draggable' : 'view'}}"
+  data="{{prefix, classPrefix, style, customStyle, moveStyle, draggable, buttonData}}"
+/>

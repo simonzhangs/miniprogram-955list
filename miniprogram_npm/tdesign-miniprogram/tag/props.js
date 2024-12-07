@@ -1,6 +1,6 @@
 const props = {
     closable: {
-        type: Boolean,
+        type: null,
         value: false,
     },
     disabled: {
@@ -11,12 +11,10 @@ const props = {
         type: Array,
     },
     icon: {
-        type: String,
-        value: '',
+        type: null,
     },
     maxWidth: {
-        type: String,
-        optionalTypes: [Number],
+        type: null,
     },
     shape: {
         type: String,

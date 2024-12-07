@@ -1,17 +1,34 @@
+<import src="../common/template/icon.wxml" />
+<wxs src="../common/utils.wxs" module="_" />
+
 <view
-  class="{{prefix}}-class {{classPrefix}} {{ hover ? classPrefix + '--hover' : ''}} {{ !bordered ? classPrefix + '--borderless' : ''}} {{classPrefix}}--{{align}}"
-  hover-class="{{classPrefix}}--hover-class"
+  style="{{_._style([style, customStyle])}}"
+  class="class {{prefix}}-class {{_.cls(classPrefix, [['borderless', !bordered || isLastChild], align])}}"
+  hover-class="{{ hover ? classPrefix + '--hover' : ''}}"
   hover-stay-time="70"
   bind:tap="onClick"
+  aria-role="{{ariaRole || (arrow ? 'button' : '')}}"
+  aria-label="{{ariaLabel}}"
 >
   <view class="{{classPrefix}}__left {{prefix}}-class-left">
-    <image wx:if="{{ image }}" class="{{classPrefix}}__left-image t-class-image" src="{{ image }}" />
-    <slot wx:else name="left-icon" />
+    <template
+      wx:if="{{_leftIcon}}"
+      is="icon"
+      data="{{tClass: classPrefix + '__left-icon ' + prefix + '-class-left-icon', ..._leftIcon }}"
+    />
+    <slot name="left-icon" />
+    <t-image
+      wx:if="{{ image }}"
+      shape="round"
+      t-class="{{classPrefix}}__left-image {{prefix}}-class-image"
+      src="{{ image }}"
+    />
+    <slot name="image" />
   </view>
-  <view class="{{classPrefix}}__title {{prefix}}-class-title">
-    <view class="{{classPrefix}}__title-text">
+  <view class="{{classPrefix}}__title {{prefix}}-class-center">
+    <view class="{{classPrefix}}__title-text {{prefix}}-class-title">
       <block wx:if="{{ title }}"> {{ title}} </block>
-      <slot wx:else name="title" />
+      <slot name="title" />
       <block wx:if="{{required}}">
         <text decode class="{{classPrefix}}--required">&nbsp;*</text>
       </block>
@@ -19,19 +36,27 @@
 
     <view class="{{classPrefix}}__description {{prefix}}-class-description">
       <view wx:if="{{ description }}" class="{{classPrefix}}__description-text">{{description}}</view>
-      <slot wx:else name="description" />
+      <slot name="description" />
     </view>
   </view>
 
   <view class="{{classPrefix}}__note {{prefix}}-class-note">
     <text wx:if="{{ note }}">{{note}}</text>
-    <slot wx:else name="note" />
+    <slot name="note" />
   </view>
 
   <view class="{{classPrefix}}__right {{prefix}}-class-right">
-    <t-icon wx:if="{{ arrow }}" name="chevron-right" class="{{classPrefix}}__right-icon {{prefix}}-class-right-icon" />
+    <template
+      wx:if="{{_arrow}}"
+      is="icon"
+      data="{{tClass: classPrefix + '__right-icon ' + prefix + '-class-right-icon', ..._arrow }}"
+    />
     <block wx:else>
-      <t-icon name="{{rightIcon}}" class="{{classPrefix}}__right-icon {{prefix}}-class-right-icon" />
+      <template
+        wx:if="{{_rightIcon}}"
+        is="icon"
+        data="{{tClass: classPrefix + '__right-icon ' + prefix + '-class-right-icon', ..._rightIcon }}"
+      />
       <slot name="right-icon" />
     </block>
   </view>

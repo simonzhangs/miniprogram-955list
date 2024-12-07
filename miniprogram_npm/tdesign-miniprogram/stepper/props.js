@@ -1,17 +1,21 @@
 const props = {
-    disabled: {
-        type: Boolean,
-        value: false,
-    },
     disableInput: {
         type: Boolean,
         value: false,
+    },
+    disabled: {
+        type: null,
+        value: undefined,
     },
     externalClasses: {
         type: Array,
     },
     inputWidth: {
         type: Number,
+    },
+    integer: {
+        type: Boolean,
+        value: true,
     },
     max: {
         type: Number,
@@ -20,6 +24,10 @@ const props = {
     min: {
         type: Number,
         value: 0,
+    },
+    size: {
+        type: String,
+        value: 'medium',
     },
     step: {
         type: Number,
@@ -30,13 +38,11 @@ const props = {
         value: 'normal',
     },
     value: {
-        type: String,
-        optionalTypes: [Number],
+        type: null,
         value: null,
     },
     defaultValue: {
-        type: String,
-        optionalTypes: [Number],
+        type: null,
         value: 0,
     },
 };

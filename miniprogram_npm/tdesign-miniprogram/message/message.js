@@ -6,197 +6,166 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
+import { MessageType } from './message.interface';
 import props from './props';
+import { unitConvert } from '../common/utils';
+const SHOW_DURATION = 400;
 const { prefix } = config;
 const name = `${prefix}-message`;
-const SHOW_DURATION = 500;
 let Message = class Message extends SuperComponent {
     constructor() {
         super(...arguments);
-        this.externalClasses = ['t-class', 't-class-content', 't-class-icon', 't-class-action', 't-class-close-btn'];
         this.options = {
-            styleIsolation: 'apply-shared',
             multipleSlots: true,
         };
         this.properties = Object.assign({}, props);
         this.data = {
             prefix,
             classPrefix: name,
-            visible: false,
-            loop: -1,
-            animation: [],
-            showAnimation: [],
-            iconName: '',
-            wrapTop: -92,
+            messageList: [],
         };
+        this.index = 0;
+        this.instances = [];
+        this.gap = 12;
         this.observers = {
-            marquee(val) {
-                if (JSON.stringify(val) === '{}') {
+            visible(value) {
+                if (value) {
+                    this.setMessage(this.properties, this.properties.theme);
+                }
+                else {
                     this.setData({
-                        marquee: {
-                            speed: 50,
-                            loop: -1,
-                            delay: 5000,
-                        },
+                        messageList: [],
                     });
                 }
             },
         };
-        this.closeTimeoutContext = 0;
-        this.nextAnimationContext = 0;
-        this.resetAnimation = wx.createAnimation({
-            duration: 0,
-            timingFunction: 'linear',
-        });
-        this.showAnimation = wx
-            .createAnimation({ duration: SHOW_DURATION, timingFunction: 'ease' })
-            .translateY(0)
-            .opacity(1)
-            .step()
-            .export();
-        this.hideAnimation = wx
-            .createAnimation({ duration: SHOW_DURATION, timingFunction: 'ease' })
-            .translateY(this.data.wrapTop)
-            .opacity(0)
-            .step()
-            .export();
+        this.pageLifetimes = {
+            show() {
+                this.hideAll();
+            },
+        };
+        this.lifetimes = {
+            ready() {
+                this.memoInitialData();
+            },
+        };
     }
-    ready() {
-        this.memoInitalData();
-        this.setIcon();
+    memoInitialData() {
+        this.initialData = Object.assign(Object.assign({}, this.properties), this.data);
     }
-    memoInitalData() {
-        this.initalData = Object.assign(Object.assign({}, this.properties), this.data);
-    }
-    resetData(cb) {
-        this.setData(Object.assign({}, this.initalData), cb);
-    }
-    detached() {
-        this.clearMessageAnimation();
-    }
-    setIcon(icon = this.properties.icon) {
-        if (!icon) {
-            this.setData({ iconName: '' });
-            return;
+    setMessage(msg, theme = MessageType.info) {
+        let id = `${name}_${this.index}`;
+        if (msg.single) {
+            id = name;
         }
-        if (typeof icon === 'string') {
-            this.setData({
-                iconName: `${icon}`,
+        this.gap = unitConvert(msg.gap || this.gap);
+        const msgObj = Object.assign(Object.assign({}, msg), { theme,
+            id, gap: this.gap });
+        const instanceIndex = this.instances.findIndex((x) => x.id === id);
+        if (instanceIndex < 0) {
+            this.addMessage(msgObj);
+        }
+        else {
+            const instance = this.instances[instanceIndex];
+            const offsetHeight = this.getOffsetHeight(instanceIndex);
+            instance.resetData(() => {
+                instance.setData(msgObj, instance.show.bind(instance, offsetHeight));
+                instance.onHide = () => {
+                    this.close(id);
+                };
             });
-            return;
-        }
-        if (icon) {
-            let nextValue = 'notification';
-            const { theme } = this.properties;
-            const themeMessage = {
-                info: 'error-circle',
-                success: 'check-circle',
-                warning: 'error-circle',
-                error: 'error-circle',
-            };
-            nextValue = themeMessage[theme];
-            this.setData({ iconName: nextValue });
         }
     }
-    checkAnimation() {
-        const speeding = this.properties.marquee.speed;
-        if (!this.properties.marquee) {
-            return;
+    addMessage(msgObj) {
+        const list = [...this.data.messageList, { id: msgObj.id }];
+        this.setData({
+            messageList: list,
+        }, () => {
+            const offsetHeight = this.getOffsetHeight();
+            const instance = this.showMessageItem(msgObj, msgObj.id, offsetHeight);
+            if (this.instances) {
+                this.instances.push(instance);
+                this.index += 1;
+            }
+        });
+    }
+    getOffsetHeight(index = -1) {
+        let offsetHeight = 0;
+        let len = index;
+        if (len === -1 || len > this.instances.length) {
+            len = this.instances.length;
         }
-        if (this.data.loop > 0) {
-            this.data.loop -= 1;
+        for (let i = 0; i < len; i += 1) {
+            const instance = this.instances[i];
+            offsetHeight += instance.data.height + instance.data.gap;
         }
-        else if (this.data.loop === 0) {
-            this.setData({ animation: this.resetAnimation.translateX(0).step().export() });
-            return;
-        }
-        if (this.nextAnimationContext) {
-            this.clearMessageAnimation();
-        }
-        const warpID = `#${name}__text-wrap`;
-        const nodeID = `#${name}__text`;
-        Promise.all([this.queryWidth(nodeID), this.queryWidth(warpID)]).then(([nodeWidth, warpWidth]) => {
-            this.setData({
-                animation: this.resetAnimation.translateX(warpWidth).step().export(),
-            }, () => {
-                const durationTime = ((nodeWidth + warpWidth) / speeding) * 1000;
-                const nextAnimation = wx
-                    .createAnimation({
-                    duration: durationTime,
-                })
-                    .translateX(-nodeWidth)
-                    .step()
-                    .export();
-                setTimeout(() => {
-                    this.nextAnimationContext = setTimeout(this.checkAnimation.bind(this), durationTime);
-                    this.setData({ animation: nextAnimation });
-                }, 20);
+        return offsetHeight;
+    }
+    showMessageItem(options, id, offsetHeight) {
+        const instance = this.selectComponent(`#${id}`);
+        if (instance) {
+            instance.resetData(() => {
+                instance.setData(options, instance.show.bind(instance, offsetHeight));
+                instance.onHide = () => {
+                    this.close(id);
+                };
             });
-        });
-    }
-    queryWidth(queryName) {
-        return new Promise((resolve) => {
-            this.createSelectorQuery()
-                .select(queryName)
-                .boundingClientRect(({ width }) => {
-                resolve(width);
-            })
-                .exec();
-        });
-    }
-    queryHeight(queryName) {
-        return new Promise((resolve) => {
-            this.createSelectorQuery()
-                .select(queryName)
-                .boundingClientRect(({ height }) => {
-                resolve(height);
-            })
-                .exec();
-        });
-    }
-    clearMessageAnimation() {
-        clearTimeout(this.nextAnimationContext);
-        this.nextAnimationContext = 0;
-    }
-    show() {
-        const { duration, icon } = this.properties;
-        this.setData({ visible: true, loop: this.properties.marquee.loop });
-        this.reset();
-        this.setIcon(icon);
-        this.checkAnimation();
-        if (duration && duration > 0) {
-            this.closeTimeoutContext = setTimeout(() => {
-                this.hide();
-                this.triggerEvent('durationEnd', { self: this });
-            }, duration);
+            return instance;
         }
-        const wrapID = `#${name}`;
-        this.queryHeight(wrapID).then((wrapHeight) => {
-            this.setData({ wrapTop: -wrapHeight }, () => {
-                this.setData({ showAnimation: this.showAnimation });
-            });
-        });
+        console.error('未找到组件,请确认 selector && context 是否正确');
     }
-    hide() {
-        this.reset();
-        this.setData({ showAnimation: this.hideAnimation });
+    close(id) {
         setTimeout(() => {
-            this.setData({ visible: false, animation: [] });
+            this.removeMsg(id);
         }, SHOW_DURATION);
+        this.removeInstance(id);
     }
-    reset() {
-        if (this.nextAnimationContext) {
-            this.clearMessageAnimation();
+    hide(id) {
+        if (!id) {
+            this.hideAll();
         }
-        clearTimeout(this.closeTimeoutContext);
-        this.closeTimeoutContext = 0;
+        const instance = this.instances.find((x) => x.id === id);
+        if (instance) {
+            instance.hide();
+        }
+    }
+    hideAll() {
+        for (let i = 0; i < this.instances.length;) {
+            const instance = this.instances[i];
+            instance.hide();
+        }
+    }
+    removeInstance(id) {
+        const index = this.instances.findIndex((x) => x.id === id);
+        if (index < 0)
+            return;
+        const instance = this.instances[index];
+        const removedHeight = instance.data.height;
+        this.instances.splice(index, 1);
+        for (let i = index; i < this.instances.length; i += 1) {
+            const instance = this.instances[i];
+            instance.setData({
+                wrapTop: instance.data.wrapTop - removedHeight - instance.data.gap,
+            });
+        }
+    }
+    removeMsg(id) {
+        const msgIndex = this.data.messageList.findIndex((x) => x.id === id);
+        if (msgIndex > -1) {
+            this.data.messageList.splice(msgIndex, 1);
+            this.setData({
+                messageList: this.data.messageList,
+            });
+        }
     }
     handleClose() {
-        this.hide();
-        this.triggerEvent('closeBtnClick');
+        this.triggerEvent('close-btn-click');
     }
-    handleBtnClick() {
-        this.triggerEvent('actionBtnClick', { self: this });
+    handleLinkClick() {
+        this.triggerEvent('link-click');
+    }
+    handleDurationEnd() {
+        this.triggerEvent('duration-end');
     }
 };
 Message = __decorate([

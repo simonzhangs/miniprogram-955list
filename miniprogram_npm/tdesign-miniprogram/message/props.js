@@ -1,15 +1,11 @@
 const props = {
-    action: {
-        type: String,
-    },
     align: {
         type: String,
         value: 'left',
     },
     closeBtn: {
-        type: String,
-        optionalTypes: [Boolean],
-        value: undefined,
+        type: null,
+        value: false,
     },
     content: {
         type: String,
@@ -18,21 +14,27 @@ const props = {
         type: Number,
         value: 3000,
     },
-    externalClasses: {
-        type: Array,
+    gap: {
+        type: null,
+        value: 12,
     },
     icon: {
-        type: String,
-        optionalTypes: [Boolean],
+        type: null,
         value: true,
     },
+    link: {
+        type: null,
+    },
     marquee: {
-        type: Boolean,
-        optionalTypes: [Object],
+        type: null,
         value: false,
     },
     offset: {
         type: Array,
+    },
+    single: {
+        type: Boolean,
+        value: true,
     },
     theme: {
         type: String,
@@ -42,8 +44,13 @@ const props = {
         type: Boolean,
         value: false,
     },
+    defaultVisible: {
+        type: Boolean,
+        value: false,
+    },
     zIndex: {
         type: Number,
+        value: 15000,
     },
 };
 export default props;

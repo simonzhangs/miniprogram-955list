@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './props';
+import { calcIcon } from '../common/utils';
 const { prefix } = config;
 const name = `${prefix}-cell`;
 let Cell = class Cell extends SuperComponent {
@@ -20,9 +21,16 @@ let Cell = class Cell extends SuperComponent {
             `${prefix}-class-hover`,
             `${prefix}-class-image`,
             `${prefix}-class-left`,
+            `${prefix}-class-left-icon`,
+            `${prefix}-class-center`,
             `${prefix}-class-right`,
             `${prefix}-class-right-icon`,
         ];
+        this.relations = {
+            '../cell-group/cell-group': {
+                type: 'parent',
+            },
+        };
         this.options = {
             multipleSlots: true,
         };
@@ -30,7 +38,24 @@ let Cell = class Cell extends SuperComponent {
         this.data = {
             prefix,
             classPrefix: name,
+            isLastChild: false,
         };
+        this.observers = {
+            leftIcon(v) {
+                this.setIcon('_leftIcon', v, '');
+            },
+            rightIcon(v) {
+                this.setIcon('_rightIcon', v, '');
+            },
+            arrow(v) {
+                this.setIcon('_arrow', v, 'chevron-right');
+            },
+        };
+    }
+    setIcon(name, value, defaultValue) {
+        this.setData({
+            [name]: calcIcon(value, defaultValue),
+        });
     }
     onClick(e) {
         this.triggerEvent('click', e.detail);

@@ -1,20 +1,14 @@
 const props = {
     current: {
-        type: String,
-        optionalTypes: [Number],
+        type: null,
         value: null,
     },
     defaultCurrent: {
-        type: String,
-        optionalTypes: [Number],
-        value: 0,
+        type: null,
     },
     currentStatus: {
         type: String,
         value: 'process',
-    },
-    externalClasses: {
-        type: Array,
     },
     layout: {
         type: String,
@@ -23,6 +17,10 @@ const props = {
     readonly: {
         type: Boolean,
         value: false,
+    },
+    sequence: {
+        type: String,
+        value: 'positive',
     },
     theme: {
         type: String,

@@ -14,6 +14,10 @@ const props = {
         type: Boolean,
         value: true,
     },
+    inheritColor: {
+        type: Boolean,
+        value: false,
+    },
     layout: {
         type: String,
         value: 'horizontal',

@@ -8,6 +8,10 @@ const props = {
         value: false,
     },
     autosize: {
+        type: null,
+        value: false,
+    },
+    bordered: {
         type: Boolean,
         value: false,
     },
@@ -17,16 +21,41 @@ const props = {
     },
     confirmType: {
         type: String,
-        value: 'done',
+        value: 'return',
     },
-    disabled: {
+    cursor: {
+        type: Number,
+        value: -1,
+    },
+    cursorSpacing: {
+        type: Number,
+        value: 0,
+    },
+    disableDefaultPadding: {
         type: Boolean,
         value: false,
     },
-    externalClasses: {
-        type: Array,
+    disabled: {
+        type: null,
+        value: undefined,
+    },
+    fixed: {
+        type: Boolean,
+        value: null,
+    },
+    defaultFixed: {
+        type: Boolean,
+        value: false,
     },
     focus: {
+        type: Boolean,
+        value: false,
+    },
+    holdKeyboard: {
+        type: Boolean,
+        value: false,
+    },
+    indicator: {
         type: Boolean,
         value: false,
     },
@@ -38,14 +67,34 @@ const props = {
     },
     maxlength: {
         type: Number,
+        value: -1,
     },
     placeholder: {
         type: String,
         value: undefined,
     },
-    value: {
+    placeholderStyle: {
         type: String,
+        value: '',
+    },
+    selectionEnd: {
+        type: Number,
+        value: -1,
+    },
+    selectionStart: {
+        type: Number,
+        value: -1,
+    },
+    showConfirmBar: {
+        type: Boolean,
+        value: true,
+    },
+    value: {
+        type: null,
         value: null,
+    },
+    defaultValue: {
+        type: null,
     },
 };
 export default props;

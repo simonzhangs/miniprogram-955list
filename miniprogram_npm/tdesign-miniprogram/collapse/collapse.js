@@ -12,15 +12,10 @@ const name = `${prefix}-collapse`;
 let Collapse = class Collapse extends SuperComponent {
     constructor() {
         super(...arguments);
-        this.options = {
-            addGlobalClass: true,
-        };
         this.externalClasses = [`${prefix}-class`];
         this.relations = {
-            './collapse-panel': {
+            '../collapse-panel/collapse-panel': {
                 type: 'descendant',
-                linked() {
-                },
             },
         };
         this.controlledProps = [
@@ -31,6 +26,7 @@ let Collapse = class Collapse extends SuperComponent {
         ];
         this.properties = props;
         this.data = {
+            prefix,
             classPrefix: name,
         };
         this.observers = {
@@ -40,10 +36,7 @@ let Collapse = class Collapse extends SuperComponent {
         };
         this.methods = {
             updateExpanded() {
-                const panels = this.getRelationNodes('./collapse-panel');
-                if (panels.length === 0)
-                    return;
-                panels.forEach((child) => {
+                this.$children.forEach((child) => {
                     child.updateExpanded(this.properties.value);
                 });
             },

@@ -1,18 +1,17 @@
 const props = {
-    activeColor: {
-        type: String,
-        value: '',
+    arrowIcon: {
+        type: null,
+        value: 'caret-down-small',
     },
     closeOnClickOverlay: {
         type: Boolean,
         value: true,
     },
     duration: {
-        type: String,
-        optionalTypes: [Number],
+        type: null,
         value: 200,
     },
-    overlay: {
+    showOverlay: {
         type: Boolean,
         value: true,
     },
