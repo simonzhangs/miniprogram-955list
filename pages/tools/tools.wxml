@@ -1,0 +1,11 @@
+<view wx:for="{{categories}}" wx:key="index" class="section">
+    <view class="title">{{item.title || item.label}}</view>
+    <view class="content">
+        <block wx:for="{{item.items}}" wx:key="index" wx:for-item="cargo">
+            <view class="grid-item" data-url="{{cargo.url}}" data-type="{{cargo.type}}" bindtap="handleItemJump">
+                <view class="title">{{cargo.title}}</view>
+                <view class="desc">{{cargo.desc}}</view>
+            </view>
+        </block>
+    </view>
+</view>

@@ -8,6 +8,20 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/tools/tools",
+          "pathName": "pages/tools/tools",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/955/955",
+          "pathName": "pages/955/955",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "miniprogram_npm/tdesign-miniprogram/date-time-picker/date-time-picker",
           "pathName": "miniprogram_npm/tdesign-miniprogram/date-time-picker/date-time-picker",
           "query": "",

@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "牛马工具箱",
+    "usingComponents": {
+      "t-button": "tdesign-miniprogram/button/button",
+      "retire-cal": "../../components/retire-cal/index"
+    }
+}

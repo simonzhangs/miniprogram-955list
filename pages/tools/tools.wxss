@@ -1,0 +1,31 @@
+page {
+  background-color: var(--td-bg-color-container) !important;
+  padding-left: 32rpx;
+  padding-right: 32rpx;
+  padding-top: 48rpx;
+  padding-bottom: 240rpx;
+}
+
+.title {
+    margin: 10rpx 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.grid-item {
+    width: 300rpx;
+    margin-right: 20rpx;
+    margin-bottom: 20rpx;
+    border: 1px solid #ccc;
+    border-radius: 10rpx;
+    padding: 10rpx;
+}
+
+.grid-item .desc{
+    font-size: 26rpx;
+    color: #ccc;
+}

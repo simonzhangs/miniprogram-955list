@@ -2,10 +2,15 @@
   "entryPagePath": "pages/home/home",
   "pages": [
     "pages/home/home",
-    "pages/about/about",
     "pages/955/955",
-    "pages/remote/remote",
+    "pages/tools/tools",
     "pages/code-info/code-info"
+  ],
+  "subPackages": [
+    {
+      "root": "pages/about",
+      "pages": ["about"]
+    }
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -26,21 +31,15 @@
       },
       {
         "pagePath": "pages/955/955",
-        "text": "公司",
+        "text": "955",
         "iconPath": "./assets/company-black.png",
         "selectedIconPath": "./assets/company.png"
       },
       {
-        "pagePath": "pages/remote/remote",
-        "text": "远程",
+        "pagePath": "pages/tools/tools",
+        "text": "工具箱",
         "iconPath": "./assets/remote-black.png",
         "selectedIconPath": "./assets/remote.png"
-      },
-      {
-        "pagePath": "pages/about/about",
-        "text": "关于",
-        "iconPath": "./assets/about-black.png",
-        "selectedIconPath": "./assets/about.png"
       }
     ]
   },

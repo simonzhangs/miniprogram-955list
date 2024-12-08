@@ -3,6 +3,8 @@
   "navigationBarBackgroundColor": "#fff",
   "usingComponents": {
     "company-list": "../../components/company-list/index",
-    "t-back-top": "tdesign-miniprogram/back-top/back-top"
+    "t-back-top": "tdesign-miniprogram/back-top/back-top",
+    "t-tabs": "tdesign-miniprogram/tabs/tabs",
+    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel"
   }
 }

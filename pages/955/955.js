@@ -1,11 +1,23 @@
 // pages/955/955.js
-import companyList from './data/index'
+import {  companyList, remoteList } from './data/index'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    tabs: [
+      {
+        label: '955公司',
+        icon: 'app',
+        value: 'companyList'
+      },
+      {
+        label: '远程公司',
+        icon: 'device',
+        value: 'remoteList'
+      },
+    ],
     companyList
   },
 
@@ -63,5 +75,14 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+  onPageScroll(e) {
+    const { scrollTop } = e;
+    this.setData({ scrollTop });
+  },
+  onTabsChange(e) {
+    const { value } = e?.detail;
+    const data = value === 'companyList' ? companyList : remoteList;
+    this.setData({ companyList: data })
   }
 })

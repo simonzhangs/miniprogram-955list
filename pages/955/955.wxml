@@ -1,7 +1,13 @@
+<t-tabs defaultValue="{{tabs[0].value}}" bind:change="onTabsChange">
+    <block wx:for="{{tabs}}" wx:key="*this">
+        <t-tab-panel wx:key="index" icon="{{item.icon}}" label="{{item.label}}" value="{{item.value}}" /> 
+    </block>
+</t-tabs>
+
 <company-list
 companyList="{{companyList}}"
 title="955 list"
 ></company-list>
 
 <!-- 半圆白底 -->
-<t-back-top theme="half-round" text="顶部"></t-back-top>
+<t-back-top theme="half-round" text="顶部" scrollTop="{{scrollTop}}"></t-back-top>
