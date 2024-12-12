@@ -1,0 +1,83 @@
+.grid-image-splitter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.upload-section {
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.split-section {
+  width: 100%;
+  position: relative;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.preview {
+  width: 100%;
+  position: relative;
+  margin-bottom: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.preview image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.grid-result {
+  display: grid;
+  grid-template-columns: repeat(var(--split-num, 3), 1fr);
+  gap: 4px;
+  width: 100%;
+  background: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.grid-item {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; /* 保持1:1的宽高比 */
+}
+
+.grid-item image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* 加载状态样式 */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* 响应式调整 */
+@media screen and (min-width: 768px) {
+  .grid-image-splitter {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,24 @@
+<view class="container">
+  <!-- 如果没有传入图片，显示选择图片按钮 -->
+  <block wx:if="{{!imageUrl}}">
+    <button bindtap="chooseImage">选择图片</button>
+  </block>
+
+  <!-- 如果传入了图片，显示重新选择图片按钮和预览 -->
+  <block wx:else>
+    <view class="preview-container">
+      <button bindtap="chooseImage">重新选择图片</button>
+      <button bindtap="splitImage" data-split="2">切分2*2</button>
+      <button bindtap="splitImage" data-split="3">切分3*3</button>
+      <image src="{{imageUrl}}" mode="aspectFit" class="preview-image"></image>
+    </view>
+  </block>
+
+  <!-- 切分后预览和保存按钮 -->
+  <view class="split-preview" wx:if="{{splitImages.length > 0}}">
+    <block wx:for="{{splitImages}}" wx:key="*this">
+      <image src="{{item}}" mode="aspectFit" class="split-image"></image>
+    </block>
+    <button bindtap="saveImages">保存切分后的图片</button>
+  </view>
+</view>

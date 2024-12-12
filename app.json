@@ -10,6 +10,10 @@
     {
       "root": "pages/about",
       "pages": ["about"]
+    },
+    {
+      "root": "pages/component-renderer",
+      "pages": ["index"]
     }
   ],
   "window": {

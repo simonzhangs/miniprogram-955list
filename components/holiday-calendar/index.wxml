@@ -1,0 +1,30 @@
+<view class="holiday-container">
+  <!-- <view class="holiday-title">2025年放假安排</view> -->
+  
+  <view class="holiday-list">
+    <view wx:for="{{holidays}}" wx:key="name" class="holiday-item">
+      <view class="holiday-name">{{item.name}}</view>
+      <view class="holiday-date">{{item.date}}</view>
+      <view class="holiday-days">放假{{item.days}}天</view>
+      <view wx:if="{{item.adjustment}}" class="holiday-adjustment">
+        调休说明：{{item.adjustment}}
+      </view>
+    </view>
+  </view>
+  <view class="holiday-source">数据来源：国务院办公厅关于2025年部分节假日安排的通知</view>
+
+  <!-- 添加分享按钮 -->
+  <view class="share-btn" bindtap="handleShare">
+    <image class="share-icon" src="/assets/icons/share.png"></image>
+    <text>分享假期安排</text>
+  </view>
+   <!-- 悬浮按钮组 -->
+  <view class="float-btns">
+    <view class="float-btn save-btn">
+      <view class="btn-content" bindtap="handleSave">
+        <!-- todo，增加icon，使用自带UI库 -->
+        <text class="btn-text">保存图片</text>
+      </view>
+    </view>
+  </view>
+</view> 

@@ -1,61 +1,11 @@
+import { categories } from './categories';
+
 Page({
   offsetTopList: [],
   data: {
     sideBarIndex: 1,
     scrollTop: 0,
-    categories: [
-      {
-        label: '选项一',
-        title: '退休计算器',
-        icon: 'app',
-        items: [
-            {
-                label: '标题文字',
-                title: '退休计算器',
-                desc: '延迟退休月数，退休时间计算',
-                image: 'https://tdesign.gtimg.com/mobile/demos/example2.png',
-                type: 'page',
-                url: '/pages/home/home'
-            },
-            {
-                label: '标题文字',
-                title: '955 公司',
-                desc: '955公司列表，远程公司列表',
-                image: 'https://tdesign.gtimg.com/mobile/demos/example2.png',
-                type: 'page',
-                url: '/pages/955/955'
-            }
-        ]
-      },
-      {
-        label: '选项二',
-        title: '图片处理',
-        icon: 'app',
-        items: [
-            {
-                title: '九宫格切图',
-                desc: '延迟退休月数，退休时间计算',
-                image: 'https://tdesign.gtimg.com/mobile/demos/example2.png',
-                // type: 'page',
-                // url: '/pages/home/home'
-            },
-            {
-                title: '图片去水印',
-                desc: '全网图片去水印',
-                image: 'https://tdesign.gtimg.com/mobile/demos/example2.png',
-                // type: 'page',
-                // url: '/pages/home/home'
-            },
-            {
-                title: '牛马精选壁纸',
-                desc: '每日精选壁纸',
-                image: 'https://tdesign.gtimg.com/mobile/demos/example2.png',
-                // type: 'page',
-                // url: '/pages/home/home'
-            }
-        ]
-      },
-    ],
+    categories,
     navbarHeight: 0,
   },
   onLoad() {
@@ -90,10 +40,14 @@ Page({
     }
   },
   handleItemJump(e) {
-    const { url, type } = e.currentTarget.dataset;
+    const { url, type, title } = e.currentTarget.dataset;
     if (type === 'page') {
         wx.switchTab({
             url
+        });
+    } else if (type === 'component') {
+        wx.navigateTo({
+            url: `/pages/component-renderer/index?componentName=${url}&title=${title}`
         });
     } else {
         wx.showModal({

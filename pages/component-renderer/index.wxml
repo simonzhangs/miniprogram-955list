@@ -1,0 +1,12 @@
+<view class="component-renderer">
+  <block wx:if="{{componentName === 'grid-image-splitter'}}">
+    <grid-image-splitter />
+  </block>
+  <block wx:elif="{{componentName === 'holiday-calendar'}}">
+    <holiday-calendar />
+  </block>
+  <block wx:elif="{{componentName === 'AnotherComponent'}}">
+    <another-component />
+  </block>
+  <!-- 可以根据需要添加更多组件 -->
+</view> 
