@@ -8,7 +8,7 @@ Page({
       componentName
     });
     wx.setNavigationBarTitle({
-      title
+      title: decodeURIComponent(title)
     });
   }
 });

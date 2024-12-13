@@ -2,5 +2,6 @@
   "usingComponents": {
     "grid-image-splitter": "/components/image-processing/grid-image-splitter/index",
     "holiday-calendar": "../../components/holiday-calendar/index"
-  }
+  },
+  "onReachBottomDistance": 100
 } 

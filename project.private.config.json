@@ -8,6 +8,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/component-renderer/index",
+          "pathName": "pages/component-renderer/index",
+          "query": "componentName=holiday-calendar&title=2025%E8%B0%83%E4%BC%91%E5%AE%89%E6%8E%92",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/tools/tools",
           "pathName": "pages/tools/tools",
           "query": "",
@@ -88,5 +95,6 @@
         }
       ]
     }
-  }
+  },
+  "libVersion": "3.7.0"
 }

@@ -61,7 +61,7 @@
   padding: 20rpx 40rpx;
   background: #007AFF;
   color: #fff;
-  border-radius: 40rpx;
+  border-radius: 60rpx;
   font-size: 28rpx;
 }
 
@@ -83,10 +83,14 @@
 .float-btn {
   display: flex;
   align-items: center;
+  height: 32rpx;
   padding: 20rpx;
   background: #ffffff;
   border-radius: 40rpx;
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  color: #333333;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  width: auto;
 }
 
 .btn-icon {
@@ -100,16 +104,11 @@
   color: #ffffff;
 }
 
-.save-btn {
-  background: #ffffff;
-  color: #333333;
-}
-
 .btn-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 24rpx;
+  padding: 0 14rpx;
 }
 
 .btn-icon {
@@ -118,4 +117,19 @@
 
 .btn-text {
   font-size: 28rpx;
+  white-space: nowrap;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  width: auto;
+}
+
+.float-btn.collapsed {
+  width: 58rpx;
+}
+
+.float-btn.collapsed .btn-text {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin: 0;
 }
