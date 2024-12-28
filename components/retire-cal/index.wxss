@@ -1,19 +1,29 @@
 .container {
-  padding: 20px;
+  padding: 24rpx;
 }
 
 .input-group {
-  margin-bottom: 20px;
+  margin-bottom: 24rpx;
+  padding: 24rpx;
+  background: #ffffff;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.06);
 }
 
-.input-group {
-  border: 1rpx solid #ccc;
-  border-radius: 10rpx;
-  padding: 20rpx 10rpx;
-}
 .gender, .datetime {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.gender {
+  margin-bottom: 24rpx;
+}
+
+.title {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
 }
 
 .selector {
@@ -23,31 +33,53 @@
 
 .select-icon {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  padding: 20rpx 28rpx;
+  background: #fff;
+  border-radius: 8rpx;
+  min-width: 240rpx;
+  border: 1rpx solid rgba(0, 0, 0, 0.1);
 }
 
 .select-icon .txt {
-  opacity: .7;
+  color: #666;
+  font-size: 26rpx;
 }
 
+.select-icon .icon {
+  margin-left: 20rpx;
+  color: #666;
+}
 
 .box {
   margin-top: 20rpx;
 }
 
+.radio-group-box {
+  width: 100%;
+}
+
 .radio-box {
-  background-color: #f6f6f6;
+  background-color: #fff !important;
+  padding: 20rpx !important;
+  margin-bottom: 16rpx !important;
+  border-radius: 8rpx !important;
+  border: 1rpx solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.radio-box:last-child {
+  margin-bottom: 0 !important;
 }
 
 .line {
-  margin-top: 40rpx;
+  margin: 32rpx 0;
   border: 0; 
-  border-top: 1rpx solid #ccc;
+  border-top: 1rpx solid rgba(0, 0, 0, 0.08);
 }
 
 .picker {
-  border: 1px solid #ccc;
+  border: 1px solid #e0e0e0;
   padding: 10px;
   border-radius: 5px;
 }
@@ -58,20 +90,142 @@
 }
 
 .radio-content {
-  background: red;
+  background: #ffcccc;
 }
 
 .result {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 24rpx;
+  background: #ffffff;
+  padding: 24rpx;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.06);
 }
 
 .result-item {
   display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.result-item text {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.result text {
+  font-size: 26rpx;
+  color: #666;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.06);
+}
+
+.result text:last-child {
+  border-bottom: none;
 }
 
 .btn {
   display: flex;
   justify-content: center;
+  margin-top: 24rpx;
+}
+
+.btn t-button {
+  transition: all 0.3s ease;
+  min-width: 320rpx;
+}
+
+.btn t-button:active {
+  transform: scale(0.98);
+}
+
+/* TDesign组件样式覆盖 */
+.t-date-time-picker__title {
+  font-size: 30rpx !important;
+  color: #333 !important;
+  font-weight: 500 !important;
+}
+
+.t-date-time-picker__cancel,
+.t-date-time-picker__confirm {
+  font-size: 28rpx !important;
+}
+
+.t-picker-item {
+  font-size: 30rpx !important;
+  color: #333 !important;
+}
+
+.t-picker__indicator {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+.t-picker__mask {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.6)) !important;
+}
+
+.t-radio {
+  padding: 24rpx !important;
+  border-radius: 8rpx !important;
+  background: #fff !important;
+  margin: 16rpx 0 !important;
+}
+
+.t-radio__title {
+  font-size: 28rpx !important;
+  color: #333 !important;
+  padding-left: 16rpx !important;
+}
+
+.t-radio__description {
+  font-size: 26rpx !important;
+  color: #666 !important;
+}
+
+.t-radio__icon {
+  font-size: 40rpx !important;
+  color: #0052d9 !important;
+}
+
+.t-button {
+  font-size: 28rpx !important;
+  height: 80rpx !important;
+  border-radius: 8rpx !important;
+}
+
+.t-button--size-large {
+  font-size: 30rpx !important;
+  height: 88rpx !important;
+  line-height: 88rpx !important;
+}
+
+.t-button--theme-primary {
+  background: #0052d9 !important;
+}
+
+.t-button--theme-primary:active {
+  background: #003db3 !important;
+}
+
+/* 选择器文本样式 */
+.select-icon block {
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 图标样式统一 */
+.t-icon {
+  font-size: 32rpx !important;
+}
+
+.t-icon.icon {
+  color: #666 !important;
+}
+
+/* 结果中的图标 */
+.result-item .t-icon {
+  margin-left: 12rpx;
+  color: #ff4d4f !important;
+  font-size: 32rpx !important;
 }

@@ -21,8 +21,8 @@ export const calRetireInfo = (retireAge, delayUnit, maxDelayYear, birthDate) => 
 
     const finalRetireDate = originRetireDate.add(delayMonth, 'month');
 
-    const finalRetireAge = retireAge + Math.floor((delayMonth / 12)) + ' 年' + ((delayMonth % 12)) + ' 月';
-    const retireDate = `${finalRetireDate.year()}-${String((finalRetireDate.month() + 1)).padStart(2, '0')}`;
+    const finalRetireAge = retireAge + Math.floor((delayMonth / 12)) + ' 岁零 ' + ((delayMonth % 12)) + ' 个月';
+    const retireDate = `${finalRetireDate.year()} 年 ${String((finalRetireDate.month() + 1)).padStart(2, '0')} 月`;
     const dateToRetireMonths = finalRetireDate.diff(currentDate, 'month');
     const dateToReire = `${Math.floor(dateToRetireMonths / 12)} 年 ${dateToRetireMonths % 12} 个月`;
     // 返回退休年龄（eg.63岁）、退休日期（eg. 2053-01)、距离退休还有（eg. 28年1个月）

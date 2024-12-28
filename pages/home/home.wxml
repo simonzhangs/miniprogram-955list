@@ -1,7 +1,4 @@
 <!--pages/home/home.wxml-->
 <view class="main">
   <retire-cal />
-  <view class="btn">
-    <t-button size="large" open-type="share">分享给牛马</t-button>
-  </view>
 </view>

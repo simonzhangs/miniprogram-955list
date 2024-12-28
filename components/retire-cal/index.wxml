@@ -40,18 +40,21 @@
   </view>
 
   <view class="btn">
-    <t-button theme="primary" bindtap="calculateRetirement">计算牛马退休年纪和日期</t-button>
+    <t-button theme="primary" bindtap="calculateRetirement">开始计算</t-button>
   </view>
   <view class="line"></view>
   <view class="result" wx:if="{{retirementInfo}}">
     <view class="result-item">
-      <text>延迟退休月数: {{retirementInfo.delayMonth}}</text>
+      <text style="margin-right:10rpx;">延迟退休月数: {{retirementInfo.delayMonth}}</text>
       <block wx:if="{{retirementInfo.reachMaxMonth}}">
           <t-icon name="angry" class="icon" />
       </block>
     </view>
-    <text>牛马解套年龄: {{retirementInfo.finalRetireAge}}</text>
     <text>牛马解套日期: {{retirementInfo.retireDate}}</text>
+    <text>牛马解套年龄: {{retirementInfo.finalRetireAge}}</text>
     <text>距离解套还有: {{retirementInfo.dateToReire}}</text>
+  </view>
+  <view class="btn" wx:if="{{retirementInfo}}">
+    <t-button size="large" open-type="share">分享给牛马</t-button>
   </view>
 </view>

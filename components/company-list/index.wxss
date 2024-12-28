@@ -2,6 +2,8 @@
   display:flex;
   flex-direction: column;
   padding-top: 20rpx;
+  background-color: #f8f8f8;
+  border-bottom: 1rpx solid #e0e0e0;
 }
 .info .title,.info .number{
   align-self: center;
@@ -13,9 +15,12 @@
   box-sizing: border-box;
   background-color: #fff;
   border-radius: 8rpx;
-  border-style:ridge;
+  border: 1rpx solid #e0e0e0;
   margin: 10rpx auto;
-  /* overflow: hidden; */
+  transition: transform 0.2s;
+}
+.oneline-list:hover {
+  transform: scale(1.02);
 }
 .switchBox {
   height: 80rpx;

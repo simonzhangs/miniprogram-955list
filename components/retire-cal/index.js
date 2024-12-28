@@ -74,6 +74,7 @@ Component({
             icon: 'none',
             title: '未填写完整'
           })
+          return;
         }
 
         const selectGender = genderSelectArr.filter((item) => item.genderKey === gender)[0];
